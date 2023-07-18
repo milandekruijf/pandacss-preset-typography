@@ -1,6 +1,6 @@
 {
   "name": "pandacss-preset-typography",
-  "version": "0.0.1-1",
+  "version": "0.0.1",
   "author": "Milan de Kruijf <contact@milandekruijf.com>",
   "description": "Easy Typography for PandaCSS inspired by TailwindCSS Typography",
   "license": "MIT",
@@ -31,7 +31,7 @@
   "scripts": {
     "build": "tsup",
     "prepublish": "pnpm debug",
-    "debug": "pnpm build && panda debug -c debug/panda.config.ts"
+    "debug": "pnpm build && panda debug -c panda.config.ts --cwd debug"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.7.0",

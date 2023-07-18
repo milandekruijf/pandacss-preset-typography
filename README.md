@@ -37,6 +37,45 @@ export default defineConfig({
 });
 ```
 
+## Prose
+
+The preset generates a `prose` recipe for you that you can use to add beautiful typographic defaults to any vanilla HTML you don’t control, like HTML rendered from Markdown, or pulled from a CMS.
+
+### Options
+
+You can change the default name of the prose recipe (`prose`) and the default colors as shown below.
+
+If you have the [Radix Colors](https://www.npmjs.com/package/pandacss-preset-radix-colors) preset installed for example, you'll get dark mode support out of the box by providing the colors as shown below. These colors combinations aren't fully tested, so change according to preference.
+
+```ts
+...
+presets: [
+  typographyPreset({
+    prose: {
+      name: "typography",
+      colors: {
+        body: "slate.10",
+        lead: "slate.9",
+        link: "slate.12",
+        counter: "slate.8",
+        bullet: "slate.6",
+        hrBorder: "slate.5",
+        quote: "slate.12",
+        quoteBorder: "slate.5",
+        heading: "slate.12",
+        caption: "slate.8",
+        bold: "slate.12",
+        code: "slate.12",
+        preCode: "slate.5",
+        preBackground: "slate.11",
+        thBorder: "slate.6",
+        tdBorder: "slate.5",
+      },
+    }
+  }),
+],
+```
+
 ## Attributions
 
 - [Chakra](https://github.com/chakra-ui) team for creating PandaCSS

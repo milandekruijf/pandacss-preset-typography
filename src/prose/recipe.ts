@@ -5,6 +5,7 @@ import { defineRecipe } from "@pandacss/dev";
 import type { RecipeConfig } from "@pandacss/types";
 import { rem, round, em } from "./utils";
 import type { ProseRecipeOptions } from "./types";
+import { mergeWithDefaultColors } from "./colors";
 
 /**
  * The default name of the prose recipe.
@@ -21,6 +22,9 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
   const name = options?.name ?? DEFAULT_PROSE_RECIPE_NAME;
   const jsx = options?.jsx ?? [];
 
+  // Merging the colors with the default colors.
+  const colors = mergeWithDefaultColors(options?.colors || {});
+
   return defineRecipe({
     name,
     jsx,
@@ -28,18 +32,18 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
       size: "base",
     },
     base: {
-      color: "prose.body",
+      color: colors.body,
       maxWidth: "65ch",
       '& [class~="lead"]': {
-        color: "prose.lead",
+        color: colors.lead,
       },
       "& a": {
-        color: "prose.link",
+        color: colors.link,
         textDecoration: "underline",
         fontWeight: "500",
       },
       "& strong": {
-        color: "prose.bold",
+        color: colors.bold,
         fontWeight: "600",
       },
       "& a strong": {
@@ -86,21 +90,21 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
       },
       "& ol > li::marker": {
         fontWeight: "400",
-        color: "prose.counter",
+        color: colors.counter,
       },
       "& ul > li::marker": {
-        color: "prose.bullet",
+        color: colors.bullet,
       },
       "& hr": {
-        borderColor: "prose.hr",
+        borderColor: colors.hrBorder,
         borderTopWidth: 1,
       },
       "& blockquote": {
         fontWeight: "500",
         fontStyle: "italic",
-        color: "prose.quote",
+        color: colors.quote,
         borderLeftWidth: "0.25rem",
-        borderLeftColor: "prose.quote.border",
+        borderLeftColor: colors.quoteBorder,
         quotes: '"\\201C""\\201D""\\2018""\\2019"',
       },
       "& blockquote p:first-of-type::before": {
@@ -110,7 +114,7 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
         content: "close-quote",
       },
       "& h1": {
-        color: "prose.heading",
+        color: colors.heading,
         fontWeight: "800",
       },
       "& h1 strong": {
@@ -118,7 +122,7 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
         color: "inherit",
       },
       "& h2": {
-        color: "prose.heading",
+        color: colors.heading,
         fontWeight: "700",
       },
       "& h2 strong": {
@@ -126,7 +130,7 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
         color: "inherit",
       },
       "& h3": {
-        color: "prose.heading",
+        color: colors.heading,
         fontWeight: "600",
       },
       "& h3 strong": {
@@ -134,7 +138,7 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
         color: "inherit",
       },
       "& h4": {
-        color: "prose.heading",
+        color: colors.heading,
         fontWeight: "600",
       },
       "& h4 strong": {
@@ -142,10 +146,10 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
         color: "inherit",
       },
       "& figcaption": {
-        color: "prose.caption",
+        color: colors.caption,
       },
       "& code": {
-        color: "prose.code",
+        color: colors.code,
         fontWeight: "600",
       },
       "& code::before": {
@@ -176,8 +180,8 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
         color: "inherit",
       },
       "& pre": {
-        color: "prose.pre.code",
-        backgroundColor: "prose.pre.bg",
+        color: colors.preCode,
+        backgroundColor: colors.preBackground,
         overflowX: "auto",
         fontWeight: "400",
       },
@@ -207,16 +211,16 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
       },
       "& thead": {
         borderBottomWidth: "1px",
-        borderBottomColor: "prose.th.border",
+        borderBottomColor: colors.thBorder,
       },
       "& thead th": {
-        color: "prose.heading",
+        color: colors.heading,
         fontWeight: "600",
         verticalAlign: "bottom",
       },
       "& tbody tr": {
         borderBottomWidth: "1px",
-        borderBottomColor: "prose.td.border",
+        borderBottomColor: colors.tdBorder,
       },
       "& tbody tr:last-child": {
         borderBottomWidth: "0",
@@ -226,7 +230,7 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
       },
       "& tfoot": {
         borderTopWidth: "1px",
-        borderTopColor: "prose.th.border",
+        borderTopColor: colors.thBorder,
       },
       "& tfoot td": {
         verticalAlign: "top",
