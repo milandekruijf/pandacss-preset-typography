@@ -6,6 +6,8 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+# THIS PACKAGE IS STILL WORKED ON, IT CONTAINS NOTHING YET
+
 # Radix Colors preset for PandaCSS
 
 Easy Typography for [PandaCSS](https://panda-css.com/) inspired by [TailwindCSS Typography](https://tailwindcss.com/docs/typography-plugin)

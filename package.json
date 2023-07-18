@@ -1,6 +1,6 @@
 {
   "name": "pandacss-preset-typography",
-  "version": "0.0.1",
+  "version": "0.0.1-0",
   "author": "Milan de Kruijf <contact@milandekruijf.com>",
   "description": "Easy Typography for PandaCSS inspired by TailwindCSS Typography",
   "license": "MIT",
