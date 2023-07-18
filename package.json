@@ -1,0 +1,46 @@
+{
+  "name": "pandacss-preset-typography",
+  "version": "0.0.1",
+  "author": "Milan de Kruijf <contact@milandekruijf.com>",
+  "description": "Easy Typography for PandaCSS inspired by TailwindCSS Typography",
+  "license": "MIT",
+  "keywords": [
+    "css",
+    "styling",
+    "preset",
+    "typography",
+    "chakra-ui",
+    "pandacss"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milandekruijf/pandacss-preset-typography.git"
+  },
+  "bugs": {
+    "url": "https://github.com/milandekruijf/pandacss-preset-typography/issues"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepublish": "pnpm debug",
+    "debug": "pnpm build && panda debug -c debug/panda.config.ts"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "^0.6.0",
+    "@pandacss/types": "^0.6.0",
+    "@types/node": "^20.4.2",
+    "tsup": "^7.1.0"
+  },
+  "peerDependencies": {
+    "@pandacss/dev": ">=0.0.1"
+  },
+  "packageManager": "pnpm@8.6.7"
+}
