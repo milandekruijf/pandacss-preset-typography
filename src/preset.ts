@@ -25,57 +25,57 @@ export function createTypographyPreset(
           colors: {
             prose: {
               body: {
-                value: "slate.700",
+                value: "{colors.slate.700}",
               },
               lead: {
-                value: "slate.600",
+                value: "{colors.slate.600}",
               },
               link: {
-                value: "slate.900",
+                value: "{colors.slate.900}",
               },
               counter: {
-                value: "slate.500",
+                value: "{colors.slate.500}",
               },
               bullet: {
-                value: "slate.300",
+                value: "{colors.slate.300}",
               },
               hr: {
-                value: "slate.200",
+                value: "{colors.slate.200}",
               },
               quote: {
-                value: "slate.900",
+                value: "{colors.slate.900}",
                 border: {
-                  value: "slate.200",
+                  value: "{colors.slate.200}",
                 },
               },
               heading: {
-                value: "slate.900",
+                value: "{colors.slate.900}",
               },
               caption: {
-                value: "slate.500",
+                value: "{colors.slate.500}",
               },
               bold: {
-                value: "slate.900",
+                value: "{colors.slate.900}",
               },
               code: {
-                value: "slate.900",
+                value: "{colors.slate.900}",
               },
               pre: {
                 code: {
-                  value: "slate.200",
+                  value: "{colors.slate.200}",
                 },
                 bg: {
-                  value: "slate.800",
+                  value: "{colors.slate.800}",
                 },
               },
               th: {
                 border: {
-                  value: "slate.300",
+                  value: "{colors.slate.300}",
                 },
               },
               td: {
                 border: {
-                  value: "slate.200",
+                  value: "{colors.slate.200}",
                 },
               },
             },
