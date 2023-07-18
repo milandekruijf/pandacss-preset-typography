@@ -8,7 +8,7 @@
 
 # Typography preset for PandaCSS
 
-Easy Typography for [PandaCSS](https://panda-css.com/) inspired by [TailwindCSS Typography](https://tailwindcss.com/docs/typography-plugin)
+Easy Typography for [PandaCSS](https://panda-css.com/) inspired by the [TailwindCSS typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 ## Installation
 
