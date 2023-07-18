@@ -6,7 +6,7 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-# Typography Preset for PandaCSS
+# Typography preset for PandaCSS
 
 Easy Typography for [PandaCSS](https://panda-css.com/) inspired by [TailwindCSS Typography](https://tailwindcss.com/docs/typography-plugin)
 
