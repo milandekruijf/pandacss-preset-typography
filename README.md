@@ -44,17 +44,17 @@ export default defineConfig({
 - [Chakra](https://github.com/chakra-ui) team for creating PandaCSS
 - [Tailwind](https://github.com/tailwindlabs) team for creating the styles
 
-[contributors-shield]: https://img.shields.io/github/contributors/milandekruijf/pandacss-preset-typograhpy.svg?style=for-the-badge
-[contributors-url]: https://github.com/milandekruijf/pandacss-preset-typograhpy/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/milandekruijf/pandacss-preset-typograhpy.svg?style=for-the-badge
-[forks-url]: https://github.com/milandekruijf/pandacss-preset-typograhpy/network/members
-[stars-shield]: https://img.shields.io/github/stars/milandekruijf/pandacss-preset-typograhpy.svg?style=for-the-badge
-[stars-url]: https://github.com/milandekruijf/pandacss-preset-typograhpy/stargazers
-[issues-shield]: https://img.shields.io/github/issues/milandekruijf/pandacss-preset-typograhpy.svg?style=for-the-badge
-[issues-url]: https://github.com/milandekruijf/pandacss-preset-typograhpy/issues
-[license-shield]: https://img.shields.io/github/license/milandekruijf/pandacss-preset-typograhpy.svg?style=for-the-badge
-[license-url]: https://github.com/milandekruijf/pandacss-preset-typograhpy/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/milandekruijf/pandacss-preset-typography.svg?style=for-the-badge
+[contributors-url]: https://github.com/milandekruijf/pandacss-preset-typography/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/milandekruijf/pandacss-preset-typography.svg?style=for-the-badge
+[forks-url]: https://github.com/milandekruijf/pandacss-preset-typography/network/members
+[stars-shield]: https://img.shields.io/github/stars/milandekruijf/pandacss-preset-typography.svg?style=for-the-badge
+[stars-url]: https://github.com/milandekruijf/pandacss-preset-typography/stargazers
+[issues-shield]: https://img.shields.io/github/issues/milandekruijf/pandacss-preset-typography.svg?style=for-the-badge
+[issues-url]: https://github.com/milandekruijf/pandacss-preset-typography/issues
+[license-shield]: https://img.shields.io/github/license/milandekruijf/pandacss-preset-typography.svg?style=for-the-badge
+[license-url]: https://github.com/milandekruijf/pandacss-preset-typography/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/milandekruijf
-[npm-shield]: https://img.shields.io/npm/dw/pandacss-preset-typograhpy?style=for-the-badge
-[npm-url]: https://www.npmjs.com/package/pandacss-preset-typograhpy
+[npm-shield]: https://img.shields.io/npm/dw/pandacss-preset-typography?style=for-the-badge
+[npm-url]: https://www.npmjs.com/package/pandacss-preset-typography
