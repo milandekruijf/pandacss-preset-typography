@@ -39,7 +39,7 @@ export default defineConfig({
 
 ## Attributions
 
-- [Radix](https://github.com/radix-ui) team for creating the wonderfully crafted colors
+- [Chakra](https://github.com/chakra-ui) team for creating PandaCSS
 - [Tailwind](https://github.com/tailwindlabs) team for creating the styles
 
 [contributors-shield]: https://img.shields.io/github/contributors/milandekruijf/pandacss-preset-typograhpy.svg?style=for-the-badge
