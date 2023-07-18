@@ -41,6 +41,20 @@ export default defineConfig({
 
 The preset generates a `prose` recipe for you that you can use to add beautiful typographic defaults to any vanilla HTML you don’t control, like HTML rendered from Markdown, or pulled from a CMS.
 
+### Usage
+
+You can provide 5 different sizes: `sm`, `base`, `lg`, `xl` and `2xl`. If you provide no options, the default size is set as `base`.
+
+```tsx
+// Import it from wherever you export panda to, also make sure
+// you change the name 'prose' if you've set a custom name.
+import { prose } from "@/panda/recipes";
+
+export function Page() {
+  return <div className={prose({ size: "lg" })}></div>;
+}
+```
+
 ### Options
 
 You can change the default name of the prose recipe (`prose`) and the default colors as shown below.
@@ -71,6 +85,9 @@ presets: [
         thBorder: "slate.6",
         tdBorder: "slate.5",
       },
+      // Advanced JSX tracking to improve performance:
+      // https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking
+      jsx: ['Button', 'Link', /Button$/]
     }
   }),
 ],
