@@ -34,8 +34,8 @@
     "debug": "pnpm build && panda debug -c debug/panda.config.ts"
   },
   "devDependencies": {
-    "@pandacss/dev": "^0.6.0",
-    "@pandacss/types": "^0.6.0",
+    "@pandacss/dev": "^0.7.0",
+    "@pandacss/types": "^0.7.0",
     "@types/node": "^20.4.2",
     "tsup": "^7.1.0"
   },

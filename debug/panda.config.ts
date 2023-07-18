@@ -3,6 +3,6 @@ import { defineConfig } from "@pandacss/dev";
 import typographyPreset from "../dist";
 
 export default defineConfig({
-  presets: [typographyPreset(), "@pandacss/preset-panda"],
+  presets: [typographyPreset({ prose: { name: "helloworld" } })],
   outdir: "debug/out",
 });
