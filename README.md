@@ -6,9 +6,9 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-# Typography preset for PandaCSS
+# 🐼 PandaCSS preset for typography
 
-Easy typography for [PandaCSS](https://panda-css.com/) inspired by the [TailwindCSS typography plugin](https://tailwindcss.com/docs/typography-plugin)
+Easy typography for [🐼 PandaCSS](https://panda-css.com/) inspired by the [TailwindCSS typography plugin](https://tailwindcss.com/docs/typography-plugin)
 
 ## Installation
 
@@ -95,7 +95,7 @@ presets: [
 
 ## Attributions
 
-- [Chakra](https://github.com/chakra-ui) team for creating PandaCSS
+- [Chakra](https://github.com/chakra-ui) team for creating 🐼 PandaCSS
 - [Tailwind](https://github.com/tailwindlabs) team for creating the styles
 
 [contributors-shield]: https://img.shields.io/github/contributors/milandekruijf/pandacss-preset-typography.svg?style=for-the-badge
