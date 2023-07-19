@@ -85,7 +85,7 @@ presets: [
         thBorder: "slate.6",
         tdBorder: "slate.5",
       },
-      // Advanced JSX tracking to improve performance:
+      // Advanced JSX tracking:
       // https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking
       jsx: ['Button', 'Link', /Button$/]
     }
