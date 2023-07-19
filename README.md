@@ -95,7 +95,7 @@ presets: [
 
 ## Attributions
 
-- [Chakra](https://github.com/chakra-ui) team for creating 🐼 PandaCSS
+- [Chakra](https://github.com/chakra-ui) team for creating [🐼 PandaCSS](https://panda-css.com/)
 - [Tailwind](https://github.com/tailwindlabs) team for creating the styles
 
 [contributors-shield]: https://img.shields.io/github/contributors/milandekruijf/pandacss-preset-typography.svg?style=for-the-badge
