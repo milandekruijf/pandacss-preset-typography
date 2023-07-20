@@ -184,6 +184,9 @@ export function createProseRecipe(options?: ProseRecipeOptions): RecipeConfig {
         backgroundColor: colors.preBackground,
         overflowX: "auto",
         fontWeight: "400",
+        // Added myself because PandaCSS resets
+        // are pretty weird?
+        fontFamily: "inherit",
       },
       "& pre code": {
         backgroundColor: "transparent",

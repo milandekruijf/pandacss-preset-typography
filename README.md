@@ -55,6 +55,10 @@ export function Page() {
 }
 ```
 
+### Lead
+
+Just like in TailwindCSS, there's also an extra `.lead` class you can apply to any element within the scope of `prose` to get a nice lead paragraph.
+
 ### Options
 
 You can change the default name of the prose recipe (`prose`) and the default colors as shown below.
@@ -68,22 +72,22 @@ presets: [
     prose: {
       name: "typography",
       colors: {
-        body: "slate.10",
-        lead: "slate.9",
-        link: "slate.12",
-        counter: "slate.8",
-        bullet: "slate.6",
-        hrBorder: "slate.5",
-        quote: "slate.12",
-        quoteBorder: "slate.5",
+        body: "slate.12",
+        lead: "slate.12",
+        link: "blue.11",
+        counter: "slate.11",
+        bullet: "slate.11",
+        hrBorder: "slate.6",
+        quote: "slate.11",
+        quoteBorder: "slate.6",
         heading: "slate.12",
-        caption: "slate.8",
+        caption: "slate.11",
         bold: "slate.12",
-        code: "slate.12",
-        preCode: "slate.5",
-        preBackground: "slate.11",
+        code: "amber.11",
+        preCode: "slate.12",
+        preBackground: "slate.2",
         thBorder: "slate.6",
-        tdBorder: "slate.5",
+        tdBorder: "slate.6",
       },
       // Advanced JSX tracking:
       // https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking
