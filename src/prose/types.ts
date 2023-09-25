@@ -18,6 +18,12 @@ export interface ProseRecipeColorsOption {
   preBackground: string;
   thBorder: string;
   tdBorder: string;
+  kbd: string;
+  /**
+   * This expects an RGB value
+   * @default "0 0 0"
+   */
+  kbdShadowRgb: string;
 }
 
 /**

@@ -88,6 +88,9 @@ presets: [
         preBackground: "slate.2",
         thBorder: "slate.6",
         tdBorder: "slate.6",
+        kbd: "slate.11",
+        // This expects an RGB value
+        kbdShadowRgb: "0 0 0"
       },
       // Advanced JSX tracking:
       // https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking

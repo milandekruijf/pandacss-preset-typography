@@ -2,5 +2,6 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "moduleResolution": "node"
-  }
+  },
+  "include": ["src"]
 }

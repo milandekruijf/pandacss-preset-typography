@@ -1,4 +1,4 @@
-import { type ProseRecipeOptions } from "./prose";
+import type { ProseRecipeOptions } from "./prose/types";
 
 /**
  * Options for the typography preset.

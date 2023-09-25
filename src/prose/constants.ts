@@ -1,8 +1,10 @@
 import type { ProseRecipeColorsOption } from "./types";
 
 /**
- * The default colors for the prose recipe.
+ * The default name of the prose recipe.
  */
+export const DEFAULT_PROSE_RECIPE_CLASS_NAME = "prose";
+
 export const DEFAULT_PROSE_RECIPE_COLORS: ProseRecipeColorsOption = {
   body: "slate.700",
   lead: "slate.600",
@@ -20,19 +22,6 @@ export const DEFAULT_PROSE_RECIPE_COLORS: ProseRecipeColorsOption = {
   preBackground: "slate.800",
   thBorder: "slate.300",
   tdBorder: "slate.200",
+  kbd: "slate.900",
+  kbdShadowRgb: "0 0 0",
 };
-
-/**
- * Merges the given colors with the default colors.
- *
- * @param colors The colors to merge.
- * @returns The merged colors.
- */
-export function mergeWithDefaultColors(
-  colors?: Partial<ProseRecipeColorsOption>
-) {
-  return {
-    ...DEFAULT_PROSE_RECIPE_COLORS,
-    ...colors,
-  };
-}
