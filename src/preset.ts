@@ -1,27 +1,22 @@
 import { definePreset } from "@pandacss/dev";
 import type { Preset } from "@pandacss/types";
-import { createProseRecipe } from "./prose/recipe";
 import type { TypographyPresetOptions } from "./types";
-import { DEFAULT_PROSE_RECIPE_CLASS_NAME } from "./prose/constants";
+import { getProseRecipeConfigRecord } from "./recipe";
 
 /**
- * Creates a typography preset.
+ * Creates a typography preset configuration based on the provided options.
+ * If options are provided, it customizes the typography preset configuration accordingly;
+ * otherwise, default values are used.
  *
- * @param options The options for the typography preset.
- * @returns The typography preset.
+ * @param options The options to customize the typography preset.
+ * @returns The configuration for the typography preset.
  */
 export function createTypographyPreset(options?: TypographyPresetOptions): Preset {
-  const proseRecipeClassName = options?.prose?.name ?? DEFAULT_PROSE_RECIPE_CLASS_NAME;
-
   return definePreset({
     theme: {
       extend: {
-        recipes: {
-          [proseRecipeClassName]: createProseRecipe(options?.prose),
-        },
+        recipes: getProseRecipeConfigRecord(options?.recipes?.prose),
       },
     },
   });
 }
-
-export default createTypographyPreset;
