@@ -64,6 +64,75 @@ export namespace Recipe {
   }
 
   /**
+   * Create the default semantic tokens to be used within the Prose Recipe.
+   *
+   * @param options The options used to get the prefix for the semantic tokens (recipe name).
+   * @returns The created semantic tokens using the provided options.
+   */
+  export function createDefaultSemanticTokens(options?: Types.Options): Panda.SemanticTokens {
+    return Panda.defineSemanticTokens({
+      colors: {
+        [getName(options)]: {
+          body: {
+            value: "{colors.slate.700}",
+          },
+          heading: {
+            value: "{colors.slate.900}",
+          },
+          lead: {
+            value: "{colors.slate.600}",
+          },
+          link: {
+            value: "{colors.slate.900}",
+          },
+          bold: {
+            value: "{colors.slate.900}",
+          },
+          counter: {
+            value: "{colors.slate.500}",
+          },
+          bullet: {
+            value: "{colors.slate.300}",
+          },
+          hr: {
+            value: "{colors.slate.200}",
+          },
+          quote: {
+            value: "{colors.slate.900}",
+          },
+          quoteBorder: {
+            value: "{colors.slate.200}",
+          },
+          caption: {
+            value: "{colors.slate.500}",
+          },
+          kbd: {
+            value: "{colors.slate.900}",
+          },
+          kbdShadow: {
+            value: "0 0 0",
+          },
+          code: {
+            value: "{colors.slate.900}",
+          },
+          preCode: {
+            value: "{colors.slate.200}",
+          },
+          preBg: {
+            value: "{colors.slate.800}",
+          },
+          thBorder: {
+            value: "{colors.slate.300}",
+          },
+          tdBorder: {
+            value: "{colors.slate.200}",
+          },
+        },
+      },
+    });
+  }
+
+  /**
    * Get options to use for getting CSS from TailwindCSS using the options
    * used to customize the Prose Recipe.
    *
@@ -102,7 +171,7 @@ export namespace Recipe {
       bold: `var(--colors-${name}-bold)`,
       counters: `var(--colors-${name}-counter)`,
       bullets: `var(--colors-${name}-bullet)`,
-      hr: `var(--colors-${name}-hr)`,
+      hr: `var(--colors-${name}-hr-border)`,
       quotes: `var(--colors-${name}-quote)`,
       "quote-borders": `var(--colors-${name}-quote-border)`,
       captions: `var(--colors-${name}-caption)`,

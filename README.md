@@ -29,10 +29,10 @@ import typographyPreset from "pandacss-preset-typography";
 export default defineConfig({
   presets: [
     typographyPreset(),
-    // Re-add the panda preset if you want to keep
+    // Re-add the panda presets if you want to keep
     // the default keyframes, breakpoints, tokens
     // and textStyles provided by PandaCSS
-    "@pandacss/preset-panda",
+    "@pandacss/dev/presets",
   ],
 });
 ```
@@ -121,7 +121,7 @@ as followed:
         bullet: {
           value: "{colors.slate.300}",
         },
-        hr: {
+        hrBorder: {
           value: "{colors.slate.200}",
         },
         quote: {
@@ -137,6 +137,7 @@ as followed:
           value: "{colors.slate.900}",
         },
         kbdShadow: {
+          // Expects an RGB value
           value: "0 0 0",
         },
         code: {

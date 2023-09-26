@@ -15,6 +15,7 @@ export namespace Preset {
       theme: {
         extend: {
           recipes: Recipe.get(options?.recipe),
+          semanticTokens: Recipe.createDefaultSemanticTokens(options?.recipe),
         },
       },
     });
@@ -25,6 +26,9 @@ export namespace Preset {
      * Represents options for configuring a Typography Preset.
      */
     export interface Options {
+      /**
+       * Specific options for the recipe.
+       */
       recipe?: Recipe.Types.Options;
     }
   }

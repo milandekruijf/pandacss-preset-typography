@@ -14,7 +14,7 @@ export default defineConfig({
         not: false,
       },
     }),
-    "@pandacss/preset-panda",
+    "@pandacss/dev/presets",
   ],
   theme: {
     extend: {
@@ -22,58 +22,58 @@ export default defineConfig({
         colors: {
           test: {
             body: {
-              value: "{colors.slate.700}",
+              value: "{colors.slate.12}",
             },
             heading: {
-              value: "{colors.slate.900}",
+              value: "{colors.slate.12}",
             },
             lead: {
-              value: "{colors.slate.600}",
+              value: "{colors.slate.12}",
             },
             link: {
-              value: "{colors.slate.900}",
+              value: "{colors.blue.11}",
             },
             bold: {
-              value: "{colors.slate.900}",
+              value: "{colors.slate.12}",
             },
             counter: {
-              value: "{colors.slate.500}",
+              value: "{colors.slate.11}",
             },
             bullet: {
-              value: "{colors.slate.300}",
+              value: "{colors.slate.11}",
             },
-            hr: {
-              value: "{colors.slate.200}",
+            hrBorder: {
+              value: "{colors.slate.6}",
             },
             quote: {
-              value: "{colors.slate.900}",
+              value: "{colors.slate.11}",
             },
             quoteBorder: {
-              value: "{colors.slate.200}",
+              value: "{colors.slate.6}",
             },
             caption: {
-              value: "{colors.slate.500}",
+              value: "{colors.slate.11}",
             },
             kbd: {
-              value: "{colors.slate.900}",
+              value: "{colors.slate.11}",
             },
             kbdShadow: {
               value: "0 0 0",
             },
             code: {
-              value: "{colors.slate.900}",
+              value: "{colors.amber.11}",
             },
             preCode: {
-              value: "{colors.slate.200}",
+              value: "{colors.slate.12}",
             },
             preBg: {
-              value: "{colors.slate.800}",
+              value: "{colors.slate.2}",
             },
             thBorder: {
-              value: "{colors.slate.300}",
+              value: "{colors.slate.6}",
             },
             tdBorder: {
-              value: "{colors.slate.200}",
+              value: "{colors.slate.6}",
             },
           },
         },
