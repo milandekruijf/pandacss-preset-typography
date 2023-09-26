@@ -1,1 +1,3 @@
-export { createTypographyPreset as default } from "./preset";
+import { Preset } from "./preset";
+
+export default Preset.create;

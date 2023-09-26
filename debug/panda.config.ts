@@ -5,15 +5,24 @@ import typographyPreset from "../dist";
 export default defineConfig({
   presets: [
     typographyPreset({
-      recipes: {
-        prose: [
-          {
-            name: "prose",
-            className: "hello",
-          },
-        ],
+      recipe: {
+        name: "prose",
+        className: "hello",
       },
     }),
   ],
+  theme: {
+    extend: {
+      tokens: {
+        colors: {
+          prose: {
+            body: {
+              value: "#fff",
+            },
+          },
+        },
+      },
+    },
+  },
   outdir: "out",
 });
