@@ -3,32 +3,26 @@ import { Recipe } from "./recipe";
 
 export namespace Preset {
   /**
-   * Creates a typography preset configuration based on the provided options.
-   * If options are provided, it customizes the typography preset configuration accordingly;
-   * otherwise, default values are used.
+   * Create a new preset using the provided `options`.
    *
-   * @param options The options to customize the typography preset.
-   * @returns The configuration for the typography preset.
+   * @param options The options used to customize the behavior
+   *  of the preset.
+   * @returns The newly created preset that can be used in the
+   *  `presets` array inside your `panda.config.ts`
    */
   export function create(options?: Types.Options): Panda.Preset {
     return Panda.definePreset({
       theme: {
         extend: {
-          recipes: Recipe.get(options?.recipe),
-          semanticTokens: Recipe.createDefaultSemanticTokens(options?.recipe),
+          recipes: Recipe.getRecord(options?.recipe),
+          semanticTokens: Recipe.createDefaultSemanticTokens({ recipe: options?.recipe }),
         },
       },
     });
   }
 
   export namespace Types {
-    /**
-     * Represents options for configuring a Typography Preset.
-     */
     export interface Options {
-      /**
-       * Specific options for the recipe.
-       */
       recipe?: Recipe.Types.Options;
     }
   }

@@ -4,81 +4,113 @@ import { Pipe } from "./utils/pipe";
 
 export namespace Tailwind {
   export namespace Constants {
+    /**
+     * The default key that is used to index the TailwindCSS configuration
+     * object to get the default style properties.
+     */
     export const DEFAULT_KEY = "DEFAULT";
+
+    /**
+     * A readonly array of the available sizes that are inside
+     * the TailwindCSS configuration object.
+     */
     export const SIZES = ["sm", "base", "lg", "xl", "2xl"] as const;
-    export const VAR_REGEX = /var\(--tw-prose-(.*?)\)/g;
-    export const VAR_DEC_REGEX = /--tw-prose-(.*?)/;
-    export const DEFAULT_NOT_PROSE_CLASS_NAME = "not-prose";
+
+    /**
+     * A regular expression that matches TailwindCSS's typography
+     * css variables.
+     */
+    export const VAR_REGEX: RegExp = /var\(--tw-prose-(.*?)\)/g;
+
+    /**
+     * A regular expression that matches TailwindCSS's typography
+     * css variable declarations.
+     */
+    export const VAR_DEC_REGEX: RegExp = /--tw-prose-(.*?)/;
+    export const DEFAULT_NOT_PROSE_CLASS_NAME: string = "not-prose";
   }
 
   /**
-   * Retrieves the raw Tailwind CSS typography configuration.
+   * Get the TailwindCSS Typography plugin configuration object.
    *
-   * @returns  The raw typography configuration.
+   * @returns TailwindCSS's Typography plugin configuration object.
    */
   export function getConfig(): Types.Config {
     return (fn() as any).config.theme.typography;
   }
 
   /**
-   * Retrieves the default CSS styles for Tailwind CSS typography.
+   * Get the default TailwindCSS Typography plugin styles.
    *
-   * @param options Options for customizing the CSS styles.
-   * @returns The default CSS styles for typography.
+   * This function also transforms the style object using the
+   * provided `css` options.
+   *
+   * @param options The options used to transform the style object.
+   * @returns A copy of the style object that was transformed.
    */
-  export function getCssDefaults(options?: Types.GetCssOptions): Types.Css {
-    return transformCss(Merge.create(getConfig()[Constants.DEFAULT_KEY].css, { deep: true }), options);
+  export function getCssDefaults(options?: Types.GetCssDefaultsOptions): Types.Css {
+    return transformCss(Merge.create(getConfig()[Constants.DEFAULT_KEY].css, { deep: true }), { css: options?.css });
   }
 
   /**
-   * Retrieves the CSS styles for a specific Tailwind CSS typography size.
+   * Gets the TailwindCSS Typography plugin style for a specific
+   * size.
    *
-   * @param size The typography size to retrieve CSS styles for.
-   * @param options Options for customizing the CSS styles.
-   * @returns The CSS styles for the specified typography size.
+   * This function also transforms the style object using the
+   * provided `css` options.
+   *
+   * @param size The size you want to get the style object from.
+   * @param options The options used to transform the style object.
+   * @returns A copy of the style object that was transformed.
    */
-  export function getCssForSize(size: Types.Size, options?: Types.GetCssOptions): Types.Css {
-    return transformCss(Merge.create(getConfig()[size].css, { deep: true }), options);
+  export function getCssForSize(size: Types.Size, options?: Types.GetCssForSizeOptions): Types.Css {
+    return transformCss(Merge.create(getConfig()[size].css, { deep: true }), { css: options?.css });
   }
 
   /**
-   * Applies customizations to a set of CSS styles based on the provided options.
+   * Get css for either all the sizes if no `sizes` option was provided.
+   * Or get the selected sizes.
    *
-   * @param css The CSS styles to customize.
-   * @param options Options for customizing the CSS styles.
-   * @returns The customized CSS styles.
-   */
-  export function transformCss(css: Types.Css, options?: Types.GetCssOptions): Types.Css {
-    return Pipe.create(css, ...Pipes.get({ ...options.pipes }));
-  }
-
-  /**
-   * Retrieves CSS styles for multiple Tailwind CSS typography sizes.
+   * This function also transforms the style object using the
+   * provided `css` options.
    *
-   * @param options Options for customizing the CSS styles for multiple sizes.
-   * @returns The CSS styles for multiple typography sizes.
+   * @param options The options used to select what sizes to get
+   *  and how to transform the css.
+   * @returns A copy of the style objects that were transformed keyed
+   *  by the size key.
    */
   export function getCssForSizes(options?: Types.GetCssForSizesOptions): Types.CssWithSizes {
     return Merge.map(
       options?.sizes ?? Constants.SIZES,
       (size) => ({
-        [size]: getCssForSize(size, options),
+        [size]: getCssForSize(size, { css: options.css }),
       }),
       { deep: true }
     );
   }
 
+  /**
+   * Transforms the style object using the provided `pipes` options.
+   *
+   * @param css The css you want to transform.
+   * @param options The options used to transform the css.
+   * @returns A copy of the style object that was transformed.
+   */
+  export function transformCss(css: Types.Css, options?: Types.TransformCssOptions): Types.Css {
+    return Pipe.create(css, ...Pipes.get({ ...options?.css?.pipes }));
+  }
+
   export namespace Pipes {
     /**
-     * Adds nested tags to CSS selectors for nested elements.
+     * This pipe makes every css selector nested by appending `&`.
      *
-     * @param css The CSS styles to add nested tags to.
-     * @returns The CSS styles with nested tags.
+     * @param input The input style object.
+     * @returns A copy of the input style object, but with nested tags.
      */
-    export function withNestedTags(css: Tailwind.Types.Css): Tailwind.Types.Css {
+    export function withNestedTags(input: Types.Input): Types.Input {
       return Merge.map(
-        Object.entries(css),
-        ([k, v]) => ({ [typeof v === "object" ? Utils.createNestedTag(k) : k]: v }),
+        Object.entries(input),
+        ([k, v]) => ({ [typeof v === "object" ? Utils.createNestedCssSelector(k) : k]: v }),
         {
           deep: true,
         }
@@ -86,47 +118,61 @@ export namespace Tailwind {
     }
 
     /**
-     * Replaces CSS variable references in styles with their corresponding values from the provided variables.
+     * This pipe replaces every TailwindCSS provided css variable
+     * with our own values.
      *
-     * @param css The CSS styles with variable references.
-     * @param vars The variables containing the values for the references.
-     * @returns The CSS styles with variable values replaced.
+     * @param input The input style object.
+     * @param options Here we can provide a variable map using
+     *  he `vars` property.
+     * @returns A copy of the input style object, but with the replaced variables.
      */
-    export function withVars(css: Tailwind.Types.Css, vars: Tailwind.Types.Vars): Tailwind.Types.Css {
+    export function withCssVars(input: Types.Input, options?: Types.WithVarsOptions): Types.Input {
       return Merge.map(
-        Object.entries(css),
+        Object.entries(input),
         ([k, v]) => ({
-          [k]: typeof v === "object" ? Pipes.withVars(v, vars) : Utils.replaceVar(v, vars),
+          [k]: typeof v === "object" ? Pipes.withCssVars(v, options) : Utils.replaceCssVar(v, options?.vars),
         }),
         { deep: true }
       );
     }
 
     /**
-     * Removes all variable declarations from the CSS.
+     * This pipe removes the TailwindCSS provided variable declarations.
      *
-     * @param css The CSS styles with variable declarations.
-     * @returns The CSS styles without variable declarations.
+     * @param input The input style object.
+     * @returns A copy of the input style object, but with no more
+     *  TailwindCSS variable declarations.
      */
-    export function withoutVarDecs(css: Tailwind.Types.Css): Tailwind.Types.Css {
-      const result: Tailwind.Types.Css = {};
+    export function withoutVarDecs(input: Types.Input): Types.Input {
+      const result: Types.Input = {};
 
-      Object.entries(css).forEach(([k, v]) => {
+      Object.entries(input).forEach(([k, v]) => {
         if (Constants.VAR_DEC_REGEX.test(k)) return;
+
         result[k] = v;
       });
 
       return result;
     }
 
+    /**
+     * This pipe adds the 'not' (TailwindCSS's 'not-prose' functionality)
+     * to the classes using the `:not()` selector.
+     *
+     * @param input The input style object.
+     * @param options Extra options you can provide to set the class name
+     *  to be used. Otherwise the default is used (`not-prose`).
+     * @returns A copy of the input style object, but with the :not()
+     *  selector applied.
+     */
     export function withNotProseClasses(
-      css: Tailwind.Types.Css,
+      input: Types.Input,
       options?: Types.WithNotProseClassesOptions
     ): Tailwind.Types.Css {
       const className = options?.className ?? Constants.DEFAULT_NOT_PROSE_CLASS_NAME;
 
       return Merge.map(
-        Object.entries(css),
+        Object.entries(input),
         ([k, v]) => ({
           [typeof v === "object" ? `:where(${k}):not(:where([class~="${className}"],[class~="$className}"] *))` : k]: v,
         }),
@@ -135,10 +181,12 @@ export namespace Tailwind {
     }
 
     /**
-     * Get the pipes with the provided options.
+     * Utility function to quickly get an array of all the pipes
+     * together, and providing options through an object.
      *
-     * @param options The optional options to customize the pipes.
-     * @returns An array of all the pipes using the provided options.
+     * @param options The universal options that are used for the pipes.
+     *  Not all pipes use the options, but those that need them, use them.
+     * @returns An array of the pipes, customized by the provided options.
      */
     export function get(options?: Types.GetOptions): Types.Fn[] {
       return [
@@ -146,12 +194,14 @@ export namespace Tailwind {
         options?.notProse &&
           ((css) => withNotProseClasses(css, typeof options?.notProse === "object" && options?.notProse)),
         options?.nestedTags && withNestedTags,
-        options?.vars && ((css) => withVars(css, options?.vars)),
+        options?.vars && ((css) => withCssVars(css, { vars: options.vars })),
       ];
     }
 
     export namespace Types {
-      export type Fn = (css: Tailwind.Types.Css) => Tailwind.Types.Css;
+      export type Input = Tailwind.Types.Css;
+
+      export type Fn = (input: Input) => Input;
 
       export type GetOptions = {
         nestedTags?: boolean;
@@ -165,31 +215,40 @@ export namespace Tailwind {
       export type WithNotProseClassesOptions = {
         className?: string;
       };
+
+      export type WithVarsOptions = {
+        vars?: Tailwind.Types.Vars;
+      };
     }
   }
 
   export namespace Utils {
     /**
-     * Generates a nested CSS selector tag for a given tag.
+     * A utility function to transform a css selector into a
+     * nested css selector by splitting the selector by `, `,
+     * mapping every entry by appending na `&` in front. And
+     * then joining all of them with `, `.
      *
-     * @param tag The tag to generate a nested selector for.
-     * @returns The nested CSS selector tag.
+     * @param cssSelector The css selector to transform.
+     * @returns The transformed css selector.
      */
-    export function createNestedTag(tag: string): string {
-      return tag
+    export function createNestedCssSelector(cssSelector: string): string {
+      return cssSelector
         .split(", ")
         .map((tag) => `& ${tag}`)
         .join(", ");
     }
 
     /**
-     * Replaces a CSS variable reference in a value with its corresponding value from the provided variables.
+     * Utility function to replace a css variable within a
+     * string with our own value inside the `vars` object.
      *
-     * @param value The CSS value containing the variable reference.
-     * @param vars The variables containing the values for the references.
-     * @returns The CSS value with the variable reference replaced with its value.
+     * @param value A string where you want to replace the variables in
+     * @param vars The variable map that contains our values.
+     *  keyed by the TailwindCSS css variable keys.
+     * @returns The changed value string.
      */
-    export function replaceVar(value: string, vars: Types.Vars): string {
+    export function replaceCssVar(value: string, vars: Types.Vars): string {
       const match = Constants.VAR_REGEX.exec(value);
 
       if (match && vars[match[1]]) value = value.replace(Constants.VAR_REGEX, vars[match[1]]);
@@ -199,50 +258,28 @@ export namespace Tailwind {
   }
 
   export namespace Types {
-    /**
-     * Represents a Tailwind CSS typography size.
-     */
     export type Size = (typeof Constants.SIZES)[number];
 
-    /**
-     * Represents an array of Tailwind CSS typography sizes.
-     */
     export type Sizes = Size[];
 
-    /**
-     * Represents a CSS style object for Tailwind CSS.
-     */
     export type Css = {
       [key: string]: Css | string;
     };
 
-    /**
-     * Represents a mapping of Tailwind CSS typography sizes to their corresponding CSS styles.
-     * Each key represents a typography size, and the value is the associated CSS style object.
-     */
     export type CssWithSizes = {
       [K in Size]?: Css;
     };
 
-    /**
-     * Represents a value with CSS styles.
-     */
     export type Value = {
       css: Css[];
     };
 
-    /**
-     * Represents the raw configuration for Tailwind CSS typography.
-     */
     export type Config = {
       [K in Size]: Value;
     } & {
       [Constants.DEFAULT_KEY]: Value;
     };
 
-    /**
-     * Represents Tailwind CSS variables with their corresponding values.
-     */
     export type Vars = {
       body: string;
       headings: string;
@@ -264,17 +301,24 @@ export namespace Tailwind {
       "td-borders": string;
     };
 
-    /**
-     * Represents options for generating CSS styles for multiple Tailwind CSS typography sizes.
-     */
-    export type GetCssForSizesOptions = GetCssOptions & {
+    export type GetCssForSizesOptions = {
+      css?: CssOptions;
       sizes?: Sizes;
     };
 
-    /**
-     * Represents options for customizing the generation of CSS styles.
-     */
-    export type GetCssOptions = {
+    export type GetCssForSizeOptions = {
+      css?: CssOptions;
+    };
+
+    export type GetCssDefaultsOptions = {
+      css?: CssOptions;
+    };
+
+    export type TransformCssOptions = {
+      css?: CssOptions;
+    };
+
+    export type CssOptions = {
       pipes?: Pipes.Types.GetOptions;
     };
   }

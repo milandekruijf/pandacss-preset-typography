@@ -2,11 +2,12 @@ import { Is } from "./is";
 
 export namespace Merge {
   /**
-   * Merges a list of objects into a single object by merging their properties.
+   * Utility function to create a merge operation.
    *
-   * @param list The list of objects to be merged.
-   * @param options Options for customizing the merge operation.
-   * @throws Throws an error if the input is not a list of objects.
+   * @param list The list of objects to merge.
+   * @param options Options used to customize the behavior of
+   *  the function. (ex: Use a deep merge instead of shallow).
+   * @throws An error if the merge operation isn't supported.
    * @returns The merged object.
    */
   export function create<T>(list: T[], options?: Types.Options): T {
@@ -15,22 +16,27 @@ export namespace Merge {
   }
 
   /**
-   * Maps a function over a list or readonly list and then merges the results into a single object.
+   * Utility function to create a merge operation on a map.
    *
-   * @param list The list to map over and merge.
-   * @param fn The mapping function to apply to each element.
-   * @returns The merged object.
+   * All options you would provide to the `create` function can
+   * also be specified here.
+   *
+   * @param list The list of objects to map over and merge.
+   * @param fn The map function.
+   * @param options Options used to customize the behavior of
+   *  the function. (ex: Use a deep merge instead of shallow).
+   * @returns The merged and mapped object.
    */
   export function map<T>(list: T[] | readonly T[], fn: (v: T) => any, options?: Types.Options) {
     return create(list.map(fn), options);
   }
 
   /**
-   * Recursively merges objects deeply.
+   * Utility function to create a deep merge on the `target` object.
    *
-   * @param target The target object to merge into.
-   * @param sources The source objects to merge from.
-   * @returns The merged object.
+   * @param target The target object to merge to.
+   * @param sources The sources to merge into the target object.
+   * @returns The deep-merged object.
    */
   export function deep(target: any, ...sources: any[]): any {
     if (!sources.length) return target;
@@ -52,10 +58,10 @@ export namespace Merge {
   }
 
   /**
-   * Merges multiple source objects into a target object by shallowly copying their properties.
+   * Utility function to create a shallow merge on the `target` object.
    *
-   * @param target The target object to merge into.
-   * @param sources The source objects to merge from.
+   * @param target The target object to merge to.
+   * @param sources The sources to merge into the target object.
    */
   export function shallow(target: any, ...sources: any[]) {
     Object.assign(target, ...sources);

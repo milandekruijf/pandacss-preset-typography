@@ -4,75 +4,97 @@ import { Tailwind } from "./tailwind";
 export namespace Recipe {
   export namespace Constants {
     /**
-     * The default name that is used for the recipe.
+     * The default name for the recipe that is used if
+     * nothing is provided.
      */
     export const DEFAULT_NAME: string = "prose";
 
     /**
-     * The default class name that is used for the recipe.
+     * The default class name for the recipe that is used
+     * if nothing is provided.
      */
     export const DEFAULT_CLASS_NAME: string = "prose";
-
-    /**
-     * The TailwindCSS variable mappings used to replace
-     * the old variables with new ones.
-     */
-    export const TAILWIND_VARS: Required<Tailwind.Types.Vars> = {
-      body: "var(--colors-prose-body)",
-      headings: "var(--colors-prose-heading)",
-      lead: "var(--colors-prose-lead)",
-      links: "var(--colors-prose-link)",
-      bold: "var(--colors-prose-bold)",
-      counters: "var(--colors-prose-counter)",
-      bullets: "var(--colors-prose-bullet)",
-      hr: "var(--colors-prose-hr)",
-      quotes: "var(--colors-prose-quote)",
-      "quote-borders": "var(--colors-prose-quote-border)",
-      captions: "var(--colors-prose-caption)",
-      kbd: "var(--colors-prose-kbd)",
-      "kbd-shadows": "var(--colors-prose-kbd-shadow)",
-      code: "var(--colors-prose-code)",
-      "pre-code": "var(--colors-prose-pre-code)",
-      "pre-bg": "var(--colors-prose-pre-bg)",
-      "th-borders": "var(--colors-prose-th-border)",
-      "td-borders": "var(--colors-prose-td-border)",
-    };
   }
 
   /**
-   * Creates a Prose Recipe configuration based on the provided options.
-   * If options are provided, it customizes the recipe configuration accordingly;
-   * otherwise, default values are used.
+   * The create function created the PandaCSS recipe configuration.
+   * You may customize the recipe using the `options` param.
    *
-   * @param options The options to customize the Prose Recipe.
-   * @returns The configuration for the Prose Recipe.
+   * @param options The options used to customize the behavior
+   *  of the recipe.
+   * @returns The created PandaCSS recipe configuration.
    */
   export function create(options?: Types.Options): Panda.RecipeConfig {
-    const tailwindCssOptions = getTailwindCssOptions(options);
+    const tailwind = getTailwindOptions({ recipe: options });
 
     return Panda.defineRecipe({
-      className: getClassName(options),
+      className: deriveClassName({ recipe: options }),
       jsx: options?.jsx,
       defaultVariants: {
         size: "base",
       },
-      base: Tailwind.getCssDefaults(tailwindCssOptions) as Panda.SystemStyleObject,
+      base: getBaseStyles({ tailwind }),
       variants: {
-        size: Tailwind.getCssForSizes(tailwindCssOptions) as Record<string, Panda.SystemStyleObject>,
+        size: getSizeStyles({ tailwind }),
       },
     });
   }
 
   /**
-   * Create the default semantic tokens to be used within the Prose Recipe.
+   * Get the base styles for the recipe.
    *
-   * @param options The options used to get the prefix for the semantic tokens (recipe name).
-   * @returns The created semantic tokens using the provided options.
+   * This uses tailwind internally to get the styles
+   * dynamically instead of manually copying everything over.
+   *
+   * @param options The options to customize the behavior of
+   *  the function.
+   * @returns The base styles object.
    */
-  export function createDefaultSemanticTokens(options?: Types.Options): Panda.SemanticTokens {
+  export function getBaseStyles(options?: Types.GetBaseStylesOptions): Panda.SystemStyleObject {
+    const css = Tailwind.getCssDefaults({ css: options?.tailwind?.css });
+
+    // It's safe to cast here because the types are technically the same.
+    return css as Panda.SystemStyleObject;
+  }
+
+  /**
+   * Get the styles for a specific size for the recipe.
+   *
+   * This uses tailwind internally to get the styles
+   * dynamically instead of manually copying everything over.
+   *
+   * @param options The options to customize the behavior of
+   *  the function.
+   * @returns The base styles object keyed by the size key.
+   */
+  export function getSizeStyles(options: Types.GetSizeStyleOptions): Record<string, Panda.SystemStyleObject> {
+    const css = Tailwind.getCssForSizes({ sizes: options?.recipe?.sizes, css: options?.tailwind?.css });
+
+    // It's safe to cast here because the types are technically the same
+    return css as Record<string, Panda.SystemStyleObject>;
+  }
+
+  /**
+   * Function to create the default semantic tokens that
+   * are used for the preset.
+   *
+   * You can provide a `prefix` option to set the prefix
+   * of the generated tokens. If not provided, it will instead
+   * try to use the name of the recipe or the default recipe
+   * name (`prose`) if that isn't provided either.
+   *
+   * @param options The options to customize the `prefix`,
+   *  or the `recipe` that will be used to get the name from
+   *  if none was provided.
+   * @returns The semantic tokens that are usable in a
+   *  PandaCSS theme configuration.
+   */
+  export function createDefaultSemanticTokens(
+    options?: Types.CreateDefaultSemanticTokensOptions
+  ): Panda.SemanticTokens {
     return Panda.defineSemanticTokens({
       colors: {
-        [getName(options)]: {
+        [options?.prefix ?? deriveName({ recipe: options?.recipe })]: {
           body: {
             value: "{colors.slate.700}",
           },
@@ -133,165 +155,157 @@ export namespace Recipe {
   }
 
   /**
-   * Get options to use for getting CSS from TailwindCSS using the options
-   * used to customize the Prose Recipe.
+   * A function to get the TailwindCSS options used to get the styles
+   * from TailwindCSS dynamically instead of manually copying it over.
    *
-   * @param options The options to customize the Prose Recipe.
-   * @returns The configuration for getting CSS from TailwindCSS
+   * @param options The options to use to get the correct TailwindCSS options.
+   * @returns The TailwindCSS options used to get styles from TailwindCSS.
    */
-  export function getTailwindCssOptions(options?: Types.Options): Tailwind.Types.GetCssOptions {
+  export function getTailwindOptions(options?: Types.GetTailwindOptionsOptions): Types.TailwindOptions {
+    const notProse = options?.recipe?.not ?? options?.tailwind?.css?.pipes?.notProse;
+
     return {
-      pipes: {
-        vars: getTailwindVars(options),
-        notProse:
-          options?.not && typeof options.not === "object"
-            ? {
-                className: options.not.className,
-              }
-            : options.not,
+      sizes: options?.recipe?.sizes,
+      css: {
+        pipes: {
+          vars: getTailwindVars({ recipe: options?.recipe }),
+          notProse:
+            typeof notProse === "object"
+              ? {
+                  className: notProse?.className,
+                }
+              : notProse,
+        },
       },
     };
   }
 
   /**
-   * Get TailwindCSS variable mappings using the Prose Recipe options,
-   * so the variables correspond to the name that is set.
+   * Used to get the TailwindCSS variable map using the provided options.
    *
-   * @param options The options used to get the recipe name.
-   * @returns The TailwindCSS variables with the proper name.
+   * You may provide a `prefix` to be used for every variable.
+   * If none are provided, it will use the recipe name, or the default
+   * recipe name (`prose`) if none were provided.
+   *
+   * @param options The options used to customize the behavior of the function.
+   * @returns The TailwindCSS variable map.
    */
-  export function getTailwindVars(options?: Types.Options): Tailwind.Types.Vars {
-    const name = getName(options);
+  export function getTailwindVars(options?: Types.GetTailwindVarsOptions): Tailwind.Types.Vars {
+    const prefix = options?.prefix ?? deriveName({ recipe: options?.recipe });
 
     return {
-      body: `var(--colors-${name}-body)`,
-      headings: `var(--colors-${name}-heading)`,
-      lead: `var(--colors-${name}-lead)`,
-      links: `var(--colors-${name}-link)`,
-      bold: `var(--colors-${name}-bold)`,
-      counters: `var(--colors-${name}-counter)`,
-      bullets: `var(--colors-${name}-bullet)`,
-      hr: `var(--colors-${name}-hr-border)`,
-      quotes: `var(--colors-${name}-quote)`,
-      "quote-borders": `var(--colors-${name}-quote-border)`,
-      captions: `var(--colors-${name}-caption)`,
-      kbd: `var(--colors-${name}-kbd)`,
-      "kbd-shadows": `var(--colors-${name}-kbd-shadow)`,
-      code: `var(--colors-${name}-code)`,
-      "pre-code": `var(--colors-${name}-pre-code)`,
-      "pre-bg": `var(--colors-${name}-pre-bg)`,
-      "th-borders": `var(--colors-${name}-th-border)`,
-      "td-borders": `var(--colors-${name}-td-border)`,
+      body: `var(--colors-${prefix}-body)`,
+      headings: `var(--colors-${prefix}-heading)`,
+      lead: `var(--colors-${prefix}-lead)`,
+      links: `var(--colors-${prefix}-link)`,
+      bold: `var(--colors-${prefix}-bold)`,
+      counters: `var(--colors-${prefix}-counter)`,
+      bullets: `var(--colors-${prefix}-bullet)`,
+      hr: `var(--colors-${prefix}-hr-border)`,
+      quotes: `var(--colors-${prefix}-quote)`,
+      "quote-borders": `var(--colors-${prefix}-quote-border)`,
+      captions: `var(--colors-${prefix}-caption)`,
+      kbd: `var(--colors-${prefix}-kbd)`,
+      "kbd-shadows": `var(--colors-${prefix}-kbd-shadow)`,
+      code: `var(--colors-${prefix}-code)`,
+      "pre-code": `var(--colors-${prefix}-pre-code)`,
+      "pre-bg": `var(--colors-${prefix}-pre-bg)`,
+      "th-borders": `var(--colors-${prefix}-th-border)`,
+      "td-borders": `var(--colors-${prefix}-td-border)`,
     };
   }
 
   /**
-   * Retrieves the CSS class name for a Prose Recipe based on the given options.
-   * If the options include a custom class name, it is returned; otherwise,
-   * the default class name (`"prose"`) is used.
+   * Function used to derive the recipe class name to use. It will either use
+   * the recipe class name, or the `default` option, or the default
+   * name if none are provided (`prose`).
    *
-   * @param options The options for the Prose Recipe.
-   * @returns The CSS class name for the Prose Recipe.
-   * @default "prose"
+   * @param options The options used to derive the correct recipe class name.
+   * @returns The derived recipe class name.
    */
-  export function getClassName(options?: Types.Options): string {
-    return options?.className ?? Constants.DEFAULT_CLASS_NAME;
+  export function deriveClassName(options?: Types.DeriveClassNameOptions): string {
+    return options?.recipe?.className ?? options?.default ?? Constants.DEFAULT_CLASS_NAME;
   }
 
   /**
-   * Retrieves the name of a Prose Recipe based on the given options.
-   * If the options include a custom name, it is returned; otherwise,
-   * the default name (`"prose"`) is used.
+   * Function used to derive the recipe name to use. It will either use
+   * the recipe class name, or the `default` options, or the default
+   * name if none are provided (`prose`).
    *
-   * @param options The options for the Prose Recipe.
-   * @returns The name of the Prose Recipe.
-   * @default "prose"
+   * @param options The options used to derive the correct name.
+   * @returns The derived recipe name.
    */
-  export function getName(options?: Types.Options): string {
-    return options?.name ?? Constants.DEFAULT_NAME;
+  export function deriveName(options?: Types.DeriveNameOptions): string {
+    return options?.recipe?.name ?? options?.default ?? Constants.DEFAULT_NAME;
   }
 
   /**
-   * Creates a configuration record for a Prose Recipe based on the provided options.
-   * If the options are an array, this function recursively processes each element and returns a record.
-   * Otherwise, it creates a single record with the recipe name as the key and the corresponding recipe configuration.
+   * Function to get the record for the recipe configuration to be used
+   * in a preset.
    *
-   * @param options The options or array of options for the Prose Recipe.
-   * @return The configuration record for the Prose Recipe(s).
+   * @param options The recipe options used to create the recipe.
+   * @returns The recipe configuration record that can be used in presets.
    */
-  export function get(options: Types.Options): Record<string, Panda.RecipeConfig> {
+  export function getRecord(options: Types.Options): Record<string, Panda.RecipeConfig> {
     return {
-      [getName(options)]: create(options),
+      [deriveName({ default: options.className })]: create(options),
     };
   }
 
   export namespace Types {
-    /**
-     * Represents options for configuring a Prose Recipe.
-     */
     export type Options = {
-      /**
-       * The name of the recipe to use. Useful if you have an other
-       * recipe with the same name.
-       *
-       * @default 'prose'
-       */
       name?: string;
-      /**
-       * The class name of the recipe to use.
-       *
-       * @default 'prose'
-       */
       className?: string;
-      /**
-       * The jsx elements to track for this recipe.
-       * Can be string or RegExp.
-       *
-       * @see https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking
-       *
-       * @default undefined
-       * @example ['Button', 'Link', /Button$/]
-       */
       jsx?: (string | RegExp)[];
-      /**
-       * Enable 'not' (TailwindCSS's 'not-prose') support.
-       *
-       * You may provide an object to provide the class name
-       * that will be used to filter out elements you don't
-       * want styled.
-       *
-       * @example
-       *
-       * You can also provide a custom class name to use by
-       * providing an object:
-       *
-       * ```ts
-       * {
-       *  not: {
-       *    className: "not-prose" // this is the default value if set to true
-       *  }
-       * }
-       * ```
-       *
-       * @example
-       * ```ts
-       * {
-       *  not: true // will use "not-prose" as the class name
-       * }
-       * ```
-       *
-       * @default false
-       */
-      not?:
-        | boolean
-        | {
-            /**
-             * The class name to use.
-             *
-             * @default 'not-prose'
-             */
-            className: string;
-          };
+      not?: Not;
+      sizes?: Sizes;
+    };
+
+    export type Sizes = Tailwind.Types.Sizes;
+
+    export type TailwindOptions = {
+      css?: Tailwind.Types.CssOptions;
+      sizes?: Tailwind.Types.Sizes;
+    };
+
+    export type GetSizeStyleOptions = {
+      recipe?: Options;
+      tailwind?: TailwindOptions;
+    };
+
+    export type GetBaseStylesOptions = {
+      tailwind?: TailwindOptions;
+    };
+
+    export type CreateDefaultSemanticTokensOptions = {
+      recipe?: Options;
+      prefix?: string;
+    };
+
+    export type Not =
+      | boolean
+      | {
+          className?: string;
+        };
+
+    export type GetTailwindOptionsOptions = {
+      recipe?: Options;
+      tailwind?: TailwindOptions;
+    };
+
+    export type GetTailwindVarsOptions = {
+      recipe?: Options;
+      prefix?: string;
+    };
+
+    export type DeriveClassNameOptions = {
+      recipe?: Options;
+      default?: string;
+    };
+
+    export type DeriveNameOptions = {
+      recipe?: Options;
+      default?: string;
     };
   }
 }

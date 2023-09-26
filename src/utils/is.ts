@@ -1,10 +1,11 @@
 export namespace Is {
   /**
-   * Returns true or false whether or not the provided item
-   * is an object (excluding arrays).
+   * Utility function to check if the provided `item` of
+   * type `any` is an object (excluding arrays).
    *
-   * @param item Item to check whether is an object.
-   * @returns Returns true or false whether or not the provided item is an object
+   * @param item The item to check.
+   * @returns Whether or not the provided `item` of type `any`
+   *  is an object (excluding arrays)
    */
   export function object(item: any): boolean {
     return item && typeof item === "object" && !Array.isArray(item);
