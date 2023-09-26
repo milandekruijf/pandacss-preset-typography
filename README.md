@@ -48,7 +48,7 @@ You can provide 5 different sizes: `sm`, `base`, `lg`, `xl` and `2xl`. If you pr
 ```tsx
 // Import it from wherever you export panda to, also make sure
 // you change the name 'prose' if you've set a custom name.
-import { prose } from "@/panda/recipes";
+import { prose } from "@pandacss/out/recipes";
 
 export function Page() {
   return <div className={prose({ size: "lg" })}></div>;
@@ -99,6 +99,7 @@ as followed:
 {
   semanticTokens: {
     colors: {
+      // Or whatever name you've set as the recipe name
       prose: {
         body: {
           value: "{colors.slate.700}",
@@ -163,8 +164,69 @@ as followed:
 
 If you have the [Radix Colors](https://www.npmjs.com/package/pandacss-preset-radix-colors) preset installed for example, you'll get dark mode support out of the box by providing the colors as shown below. These colors combinations aren't fully tested, so change according to preference.
 
-```
-
+```ts
+{
+  semanticTokens: {
+    colors: {
+      test: {
+        body: {
+          value: "{colors.slate.12}",
+        },
+        heading: {
+          value: "{colors.slate.12}",
+        },
+        lead: {
+          value: "{colors.slate.12}",
+        },
+        link: {
+          value: "{colors.blue.11}",
+        },
+        bold: {
+          value: "{colors.slate.12}",
+        },
+        counter: {
+          value: "{colors.slate.11}",
+        },
+        bullet: {
+          value: "{colors.slate.11}",
+        },
+        hrBorder: {
+          value: "{colors.slate.6}",
+        },
+        quote: {
+          value: "{colors.slate.11}",
+        },
+        quoteBorder: {
+          value: "{colors.slate.6}",
+        },
+        caption: {
+          value: "{colors.slate.11}",
+        },
+        kbd: {
+          value: "{colors.slate.11}",
+        },
+        kbdShadow: {
+          value: "0 0 0",
+        },
+        code: {
+          value: "{colors.amber.11}",
+        },
+        preCode: {
+          value: "{colors.slate.12}",
+        },
+        preBg: {
+          value: "{colors.slate.2}",
+        },
+        thBorder: {
+          value: "{colors.slate.6}",
+        },
+        tdBorder: {
+          value: "{colors.slate.6}",
+        },
+      },
+    },
+  },
+}
 ```
 
 ## Attributions
