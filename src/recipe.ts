@@ -2,29 +2,31 @@ import * as Panda from "@pandacss/dev";
 import { Tailwind } from "./tailwind";
 
 export namespace Recipe {
-  export const DEFAULT_NAME: string = "prose";
-  export const DEFAULT_CLASS_NAME: string = "prose";
+  export namespace Constants {
+    export const DEFAULT_NAME: string = "prose";
+    export const DEFAULT_CLASS_NAME: string = "prose";
 
-  export const TAILWIND_VARS: Required<Tailwind.Types.Vars> = {
-    body: "var(--colors-prose-body)",
-    headings: "var(--colors-prose-headings)",
-    lead: "var(--colors-prose-lead)",
-    links: "var(--colors-prose-links)",
-    bold: "var(--colors-prose-bold)",
-    counters: "var(--colors-prose-counters)",
-    bullets: "var(--colors-prose-bullets)",
-    hr: "var(--colors-prose-hr)",
-    quotes: "var(--colors-prose-quotes)",
-    "quote-borders": "var(--colors-prose-quote-borders)",
-    captions: "var(--colors-prose-captions)",
-    kbd: "var(--colors-prose-kbd)",
-    "kbd-shadows": "var(--colors-prose-kbd-shadows)",
-    code: "var(--colors-prose-code)",
-    "pre-code": "var(--colors-prose-pre-code)",
-    "pre-bg": "var(--colors-prose-pre-bg)",
-    "th-borders": "var(--colors-prose-th-borders)",
-    "td-borders": "var(--colors-prose-td-borders)",
-  };
+    export const TAILWIND_VARS: Required<Tailwind.Types.Vars> = {
+      body: "var(--colors-prose-body)",
+      headings: "var(--colors-prose-headings)",
+      lead: "var(--colors-prose-lead)",
+      links: "var(--colors-prose-links)",
+      bold: "var(--colors-prose-bold)",
+      counters: "var(--colors-prose-counters)",
+      bullets: "var(--colors-prose-bullets)",
+      hr: "var(--colors-prose-hr)",
+      quotes: "var(--colors-prose-quotes)",
+      "quote-borders": "var(--colors-prose-quote-borders)",
+      captions: "var(--colors-prose-captions)",
+      kbd: "var(--colors-prose-kbd)",
+      "kbd-shadows": "var(--colors-prose-kbd-shadows)",
+      code: "var(--colors-prose-code)",
+      "pre-code": "var(--colors-prose-pre-code)",
+      "pre-bg": "var(--colors-prose-pre-bg)",
+      "th-borders": "var(--colors-prose-th-borders)",
+      "td-borders": "var(--colors-prose-td-borders)",
+    };
+  }
 
   /**
    * Creates a Prose Recipe configuration based on the provided options.
@@ -41,9 +43,9 @@ export namespace Recipe {
       defaultVariants: {
         size: "base",
       },
-      base: Tailwind.getCssDefaults({ vars: TAILWIND_VARS }) as Panda.SystemStyleObject,
+      base: Tailwind.getCssDefaults({ vars: Constants.TAILWIND_VARS }) as Panda.SystemStyleObject,
       variants: {
-        size: Tailwind.getCssForSizes({ vars: TAILWIND_VARS }) as Record<string, Panda.SystemStyleObject>,
+        size: Tailwind.getCssForSizes({ vars: Constants.TAILWIND_VARS }) as Record<string, Panda.SystemStyleObject>,
       },
     });
   }
@@ -56,7 +58,7 @@ export namespace Recipe {
    * @returns The CSS class name for the Prose Recipe.
    */
   export function getClassName(options?: Types.Options): string {
-    return options?.className ?? DEFAULT_CLASS_NAME;
+    return options?.className ?? Constants.DEFAULT_CLASS_NAME;
   }
 
   /**
@@ -67,7 +69,7 @@ export namespace Recipe {
    * @returns The name of the Prose Recipe.
    */
   export function getName(options?: Types.Options): string {
-    return options?.name ?? DEFAULT_NAME;
+    return options?.name ?? Constants.DEFAULT_NAME;
   }
 
   /**

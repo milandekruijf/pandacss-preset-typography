@@ -3,9 +3,11 @@ import { Merge } from "./utils/merge";
 import { Pipe } from "./utils/pipe";
 
 export namespace Tailwind {
-  export const DEFAULT_KEY = "DEFAULT";
-  export const SIZES = ["sm", "base", "lg", "xl", "2xl"] as const;
-  export const VAR_REGEX = /var\(--tw-prose-(.*?)\)/g;
+  export namespace Constants {
+    export const DEFAULT_KEY = "DEFAULT";
+    export const SIZES = ["sm", "base", "lg", "xl", "2xl"] as const;
+    export const VAR_REGEX = /var\(--tw-prose-(.*?)\)/g;
+  }
 
   /**
    * Retrieves the raw Tailwind CSS typography configuration.
@@ -23,7 +25,7 @@ export namespace Tailwind {
    * @returns The default CSS styles for typography.
    */
   export function getCssDefaults(options?: Types.GetCssOptions): Types.Css {
-    return transformCss(Merge.create(getConfig()[DEFAULT_KEY].css, { deep: true }), options);
+    return transformCss(Merge.create(getConfig()[Constants.DEFAULT_KEY].css, { deep: true }), options);
   }
 
   /**
@@ -56,7 +58,7 @@ export namespace Tailwind {
    */
   export function getCssForSizes(options?: Types.GetCssForSizesOptions): Types.CssWithSizes {
     return Merge.map(
-      options?.sizes ?? SIZES,
+      options?.sizes ?? Constants.SIZES,
       (size) => ({
         [size]: getCssForSize(size, options),
       }),
@@ -140,9 +142,9 @@ export namespace Tailwind {
      * @returns The CSS value with the variable reference replaced with its value.
      */
     export function replaceVar(value: string, vars: Types.Vars): string {
-      const match = VAR_REGEX.exec(value);
+      const match = Constants.VAR_REGEX.exec(value);
 
-      if (match && vars[match[1]]) value = value.replace(VAR_REGEX, vars[match[1]]);
+      if (match && vars[match[1]]) value = value.replace(Constants.VAR_REGEX, vars[match[1]]);
 
       return value;
     }
@@ -152,7 +154,7 @@ export namespace Tailwind {
     /**
      * Represents a Tailwind CSS typography size.
      */
-    export type Size = (typeof SIZES)[number];
+    export type Size = (typeof Constants.SIZES)[number];
 
     /**
      * Represents an array of Tailwind CSS typography sizes.
@@ -187,7 +189,7 @@ export namespace Tailwind {
     export type Config = {
       [K in Size]: Value;
     } & {
-      [DEFAULT_KEY]: Value;
+      [Constants.DEFAULT_KEY]: Value;
     };
 
     /**
