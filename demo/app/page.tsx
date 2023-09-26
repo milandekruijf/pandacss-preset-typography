@@ -1,11 +1,11 @@
-import { prose } from "@pandacss/out/recipes";
+import { test } from "@pandacss/out/recipes";
 import { cx, css } from "@pandacss/out/css";
 
 export default function Page() {
   return (
     <div
       className={cx(
-        prose({
+        test({
           size: {
             base: "base",
             lg: "lg",

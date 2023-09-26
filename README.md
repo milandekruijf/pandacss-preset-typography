@@ -61,9 +61,7 @@ Just like in TailwindCSS, there's also an extra `.lead` class you can apply to a
 
 ### Options
 
-You can change the default name of the prose recipe (`prose`) and the default colors as shown below.
-
-If you have the [Radix Colors](https://www.npmjs.com/package/pandacss-preset-radix-colors) preset installed for example, you'll get dark mode support out of the box by providing the colors as shown below. These colors combinations aren't fully tested, so change according to preference.
+You can change the default name of the recipe (`prose`), the default class name (`prose`) and change other stuff as shown below.
 
 ```ts
 ...
@@ -90,6 +88,82 @@ presets: [
     },
   }),
 ],
+```
+
+### Colors
+
+Colors are currently being handled by CSS variables. The default colors are
+as followed:
+
+```ts
+{
+  semanticTokens: {
+    colors: {
+      prose: {
+        body: {
+          value: "{colors.slate.700}",
+        },
+        heading: {
+          value: "{colors.slate.900}",
+        },
+        lead: {
+          value: "{colors.slate.600}",
+        },
+        link: {
+          value: "{colors.slate.900}",
+        },
+        bold: {
+          value: "{colors.slate.900}",
+        },
+        counter: {
+          value: "{colors.slate.500}",
+        },
+        bullet: {
+          value: "{colors.slate.300}",
+        },
+        hr: {
+          value: "{colors.slate.200}",
+        },
+        quote: {
+          value: "{colors.slate.900}",
+        },
+        quoteBorder: {
+          value: "{colors.slate.200}",
+        },
+        caption: {
+          value: "{colors.slate.500}",
+        },
+        kbd: {
+          value: "{colors.slate.900}",
+        },
+        kbdShadow: {
+          value: "0 0 0",
+        },
+        code: {
+          value: "{colors.slate.900}",
+        },
+        preCode: {
+          value: "{colors.slate.200}",
+        },
+        preBg: {
+          value: "{colors.slate.800}",
+        },
+        thBorder: {
+          value: "{colors.slate.300}",
+        },
+        tdBorder: {
+          value: "{colors.slate.200}",
+        },
+      },
+    },
+  },
+}
+```
+
+If you have the [Radix Colors](https://www.npmjs.com/package/pandacss-preset-radix-colors) preset installed for example, you'll get dark mode support out of the box by providing the colors as shown below. These colors combinations aren't fully tested, so change according to preference.
+
+```
+
 ```
 
 ## Attributions

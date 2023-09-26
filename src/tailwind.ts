@@ -244,24 +244,24 @@ export namespace Tailwind {
      * Represents Tailwind CSS variables with their corresponding values.
      */
     export type Vars = {
-      body?: string;
-      headings?: string;
-      lead?: string;
-      links?: string;
-      bold?: string;
-      counters?: string;
-      bullets?: string;
-      hr?: string;
-      quotes?: string;
-      "quote-borders"?: string;
-      captions?: string;
-      kbd?: string;
-      "kbd-shadows"?: string;
-      code?: string;
-      "pre-code"?: string;
-      "pre-bg"?: string;
-      "th-borders"?: string;
-      "td-borders"?: string;
+      body: string;
+      headings: string;
+      lead: string;
+      links: string;
+      bold: string;
+      counters: string;
+      bullets: string;
+      hr: string;
+      quotes: string;
+      "quote-borders": string;
+      captions: string;
+      kbd: string;
+      "kbd-shadows": string;
+      code: string;
+      "pre-code": string;
+      "pre-bg": string;
+      "th-borders": string;
+      "td-borders": string;
     };
 
     /**
