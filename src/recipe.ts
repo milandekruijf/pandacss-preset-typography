@@ -37,17 +37,33 @@ export namespace Recipe {
    * @returns The configuration for the Prose Recipe.
    */
   export function create(options?: Types.Options): Panda.RecipeConfig {
+    const tailwindCssOptions = getTailwindCssOptions(options);
+
     return Panda.defineRecipe({
       className: getClassName(options),
       jsx: options?.jsx,
       defaultVariants: {
         size: "base",
       },
-      base: Tailwind.getCssDefaults({ vars: Constants.TAILWIND_VARS }) as Panda.SystemStyleObject,
+      base: Tailwind.getCssDefaults(tailwindCssOptions) as Panda.SystemStyleObject,
       variants: {
-        size: Tailwind.getCssForSizes({ vars: Constants.TAILWIND_VARS }) as Record<string, Panda.SystemStyleObject>,
+        size: Tailwind.getCssForSizes(tailwindCssOptions) as Record<string, Panda.SystemStyleObject>,
       },
     });
+  }
+
+  export function getTailwindCssOptions(options?: Types.Options): Tailwind.Types.GetCssOptions {
+    return {
+      pipes: {
+        vars: Constants.TAILWIND_VARS,
+        notProse:
+          options?.not && typeof options.not === "object"
+            ? {
+                className: options.not.className,
+              }
+            : options.not,
+      },
+    };
   }
 
   /**
@@ -111,6 +127,40 @@ export namespace Recipe {
        * @example ['Button', 'Link', /Button$/]
        */
       jsx?: (string | RegExp)[];
+      /**
+       * Enable 'not' (TailwindCSS's 'not-prose') support.
+       *
+       * You may provide an object to provide the class name
+       * that will be used to filter out elements you don't
+       * want styled.
+       *
+       * @example
+       *
+       * You can also provide a custom class name to use by
+       * providing an object:
+       *
+       * ```ts
+       * {
+       *  not: {
+       *    className: "not-prose" // this is the default value if set to true
+       *  }
+       * }
+       * ```
+       *
+       * @example
+       * ```ts
+       * {
+       *  not: true // will use "not-prose" as the class name
+       * }
+       * ```
+       *
+       * @default false
+       */
+      not?:
+        | boolean
+        | {
+            className: string;
+          };
     };
   }
 }

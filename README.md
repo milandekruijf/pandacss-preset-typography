@@ -69,33 +69,25 @@ If you have the [Radix Colors](https://www.npmjs.com/package/pandacss-preset-rad
 ...
 presets: [
   typographyPreset({
-    prose: {
-      name: "typography",
-      colors: {
-        body: "slate.12",
-        lead: "slate.12",
-        link: "blue.11",
-        counter: "slate.11",
-        bullet: "slate.11",
-        hrBorder: "slate.6",
-        quote: "slate.11",
-        quoteBorder: "slate.6",
-        heading: "slate.12",
-        caption: "slate.11",
-        bold: "slate.12",
-        code: "amber.11",
-        preCode: "slate.12",
-        preBackground: "slate.2",
-        thBorder: "slate.6",
-        tdBorder: "slate.6",
-        kbd: "slate.11",
-        // This expects an RGB value
-        kbdShadowRgb: "0 0 0"
-      },
-      // Advanced JSX tracking:
-      // https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking
-      jsx: ['Button', 'Link', /Button$/]
-    }
+    recipe: {
+      // The name of the recipe. Useful if you have an other recipe
+      // with the same name. It's 'prose' by default.
+      name: "prose",
+
+      // The class name that is used for the recipe base class.
+      // It's 'prose' by default
+      className: "prose",
+
+      // Enable TailwindCSS's 'not-prose' support
+      not: true,
+      // You may provide an object to set specific options
+      // not: {
+      //   className: "not-prose"
+      // },
+
+      // Advanced JSX tracking: https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking
+      jsx: ['Mdx']
+    },
   }),
 ],
 ```

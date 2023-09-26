@@ -7,6 +7,8 @@ export namespace Tailwind {
     export const DEFAULT_KEY = "DEFAULT";
     export const SIZES = ["sm", "base", "lg", "xl", "2xl"] as const;
     export const VAR_REGEX = /var\(--tw-prose-(.*?)\)/g;
+    export const VAR_DEC_REGEX = /--tw-prose-(.*?)/;
+    export const DEFAULT_NOT_PROSE_CLASS_NAME = "not-prose";
   }
 
   /**
@@ -47,7 +49,7 @@ export namespace Tailwind {
    * @returns The customized CSS styles.
    */
   export function transformCss(css: Types.Css, options?: Types.GetCssOptions): Types.Css {
-    return Pipe.create(css, ...Pipes.get({ nestedTags: true, vars: options?.vars }));
+    return Pipe.create(css, ...Pipes.get({ ...options.pipes }));
   }
 
   /**
@@ -101,13 +103,51 @@ export namespace Tailwind {
     }
 
     /**
+     * Removes all variable declarations from the CSS.
+     *
+     * @param css The CSS styles with variable declarations.
+     * @returns The CSS styles without variable declarations.
+     */
+    export function withoutVarDecs(css: Tailwind.Types.Css): Tailwind.Types.Css {
+      const result: Tailwind.Types.Css = {};
+
+      Object.entries(css).forEach(([k, v]) => {
+        if (Constants.VAR_DEC_REGEX.test(k)) return;
+        result[k] = v;
+      });
+
+      return result;
+    }
+
+    export function withNotProseClasses(
+      css: Tailwind.Types.Css,
+      options?: Types.WithNotProseClassesOptions
+    ): Tailwind.Types.Css {
+      const className = options?.className ?? Constants.DEFAULT_NOT_PROSE_CLASS_NAME;
+
+      return Merge.map(
+        Object.entries(css),
+        ([k, v]) => ({
+          [typeof v === "object" ? `:where(${k}):not(:where([class~="${className}"],[class~="$className}"] *))` : k]: v,
+        }),
+        { deep: true }
+      );
+    }
+
+    /**
      * Get the pipes with the provided options.
      *
      * @param options The optional options to customize the pipes.
      * @returns An array of all the pipes using the provided options.
      */
     export function get(options?: Types.GetOptions): Types.Fn[] {
-      return [options?.nestedTags && withNestedTags, options?.vars && ((css) => withVars(css, options?.vars))];
+      return [
+        !options?.varDecs && withoutVarDecs,
+        options?.notProse &&
+          ((css) => withNotProseClasses(css, typeof options?.notProse === "object" && options?.notProse)),
+        options?.nestedTags && withNestedTags,
+        options?.vars && ((css) => withVars(css, options?.vars)),
+      ];
     }
 
     export namespace Types {
@@ -116,6 +156,14 @@ export namespace Tailwind {
       export type GetOptions = {
         nestedTags?: boolean;
         vars?: Tailwind.Types.Vars;
+        varDecs?: boolean;
+        notProse?: GetOptionsNotProseOption;
+      };
+
+      export type GetOptionsNotProseOption = boolean | WithNotProseClassesOptions;
+
+      export type WithNotProseClassesOptions = {
+        className?: string;
       };
     }
   }
@@ -227,7 +275,7 @@ export namespace Tailwind {
      * Represents options for customizing the generation of CSS styles.
      */
     export type GetCssOptions = {
-      vars?: Vars;
+      pipes?: Pipes.Types.GetOptions;
     };
   }
 }

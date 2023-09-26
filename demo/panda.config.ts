@@ -5,7 +5,17 @@ import radixColors from "pandacss-preset-radix-colors";
 export default defineConfig({
   preflight: true,
   include: ["app/**/*.tsx"],
-  presets: [radixColors(), typographyPreset(), "@pandacss/preset-panda"],
+  presets: [
+    radixColors(),
+    typographyPreset({
+      recipe: {
+        name: "prose",
+        className: "prose",
+        not: true,
+      },
+    }),
+    "@pandacss/preset-panda",
+  ],
   theme: {
     extend: {
       semanticTokens: {
