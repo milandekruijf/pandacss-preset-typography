@@ -18,8 +18,8 @@ export function createRecipe(options?: RecipeOptions) {
   });
 
   // Only add the sizes the user wants.
-  const variants = {};
-  (options?.sizes ?? SIZES).forEach((size) => (variants[size] = css[size]));
+  const sizes: any = {};
+  (options?.sizes ?? SIZES).forEach((size) => (sizes[size] = css[size]));
 
   return {
     [name]: defineRecipe({
@@ -27,8 +27,11 @@ export function createRecipe(options?: RecipeOptions) {
       description:
         options?.description ?? "Generated using 🐼 pandacss-preset-typography",
       base: css.default,
+      defaultVariants: {
+        size: "base" in sizes ? "base" : Object.keys(sizes)[0],
+      },
       variants: {
-        size: variants,
+        size: sizes,
       },
       jsx: options?.jsx,
     }),

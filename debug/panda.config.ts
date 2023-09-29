@@ -8,7 +8,7 @@ export default defineConfig({
       recipe: {
         name: "prose",
         className: "prose",
-        sizes: ["sm", "base", "lg", "xl", "2xl"],
+        sizes: [],
         semanticTokens: {
           defaults: {
             colorPalette: "gray",

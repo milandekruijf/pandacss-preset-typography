@@ -99,7 +99,8 @@ as followed:
 {
   semanticTokens: {
     colors: {
-      // Or whatever name you've set as the recipe name
+      // Or whatever name you've set as the semantic tokens
+      // prefix or recipe name
       prose: {
         body: {
           value: "{colors.slate.700}",
@@ -168,7 +169,9 @@ If you have the [Radix Colors](https://www.npmjs.com/package/pandacss-preset-rad
 {
   semanticTokens: {
     colors: {
-      test: {
+      // Or whatever name you've set as the semantic tokens
+      // prefix or recipe name
+      prose: {
         body: {
           value: "{colors.slate.12}",
         },
@@ -206,6 +209,7 @@ If you have the [Radix Colors](https://www.npmjs.com/package/pandacss-preset-rad
           value: "{colors.slate.11}",
         },
         kbdShadow: {
+          // Expects an RGB value
           value: "0 0 0",
         },
         code: {
