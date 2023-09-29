@@ -72,7 +72,7 @@ export type DefaultSemanticTokensOptions = {
    *
    * @default 'slate'
    */
-  palette?: string;
+  colorPalette?: string;
 };
 
 export type NotOptions = {
