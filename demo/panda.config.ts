@@ -9,9 +9,13 @@ export default defineConfig({
     radixColors(),
     typographyPreset({
       recipe: {
-        name: "test",
+        name: "prose",
         className: "prose",
-        not: false,
+        sizes: ["sm", "base", "lg", "xl", "2xl"],
+        semanticTokens: {
+          defaults: false,
+          prefix: "prose",
+        },
       },
     }),
     "@pandacss/dev/presets",
@@ -20,7 +24,7 @@ export default defineConfig({
     extend: {
       semanticTokens: {
         colors: {
-          test: {
+          prose: {
             body: {
               value: "{colors.slate.12}",
             },

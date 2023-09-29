@@ -39,15 +39,10 @@ export type RecipeOptions = {
    */
   not?: boolean | NotOptions;
   /**
-   * Set whether or not you want to include the default
-   * semantic tokens.
-   *
-   * You may provide an object if you want to set
-   * a custom prefix.
-   *
-   * @default true
+   * Configure the default behavior of
+   * the included semantic tokens.
    */
-  defaultSemanticTokens?: boolean | DefaultSemanticTokensOptions;
+  semanticTokens?: SemanticTokensOptions;
   /**
    * Advanced JSX tracking
    *
@@ -56,7 +51,29 @@ export type RecipeOptions = {
   jsx?: (string | RegExp)[];
 };
 
-export type DefaultSemanticTokensOptions = {
+export type SemanticTokensOptions = {
+  /**
+   * Set whether or not you want to include the default
+   * semantic tokens.
+   *
+   * You may provide an object if you want to set
+   * a custom prefix.
+   *
+   * @default true
+   */
+  defaults?:
+    | boolean
+    | {
+        /**
+         * Set the color palette to use.
+         *
+         * It only works with colors that have a numeric scale (11x)
+         * from 50 to 950. (50, 100, 200, ..., 800, 900, 950).
+         *
+         * @default 'slate'
+         */
+        colorPalette?: string;
+      };
   /**
    * Set the semantic token prefix to be used.
    *
@@ -64,15 +81,6 @@ export type DefaultSemanticTokensOptions = {
    * be used.
    */
   prefix?: string;
-  /**
-   * Set the color palette to use.
-   *
-   * It only works with colors that have a numeric scale (11x)
-   * from 50 to 950. (50, 100, 200, ..., 800, 900, 950).
-   *
-   * @default 'slate'
-   */
-  colorPalette?: string;
 };
 
 export type NotOptions = {

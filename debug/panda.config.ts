@@ -9,7 +9,10 @@ export default defineConfig({
         name: "prose",
         className: "prose",
         sizes: ["sm", "base", "lg", "xl", "2xl"],
-        defaultSemanticTokens: {
+        semanticTokens: {
+          defaults: {
+            colorPalette: "gray",
+          },
           prefix: "prose",
         },
       },

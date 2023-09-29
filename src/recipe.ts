@@ -8,10 +8,11 @@ export function createRecipe(options?: RecipeOptions) {
   const className = options?.className ?? name;
 
   // Get the styles from TailwindCSS's typography plugin
+  const { semanticTokens } = options;
   const css = getCssFromTailwind({
     varPrefix:
-      typeof options?.defaultSemanticTokens === "object"
-        ? options?.defaultSemanticTokens?.prefix ?? name
+      semanticTokens && typeof semanticTokens === "object"
+        ? semanticTokens?.prefix ?? name
         : name,
     notProse: options?.not,
   });

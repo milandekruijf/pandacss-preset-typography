@@ -39,9 +39,8 @@ export function getCssFromTailwind(options?: GetCssFromTailwindOptions) {
   Object.entries(css).forEach(([k0, v0]) => {
     Object.entries(v0).forEach(([k1, v1]) => {
       if (typeof v1 === "string")
-        // Replace variables.
         Object.entries(vars).forEach(
-          ([m, r]) => (css[k0][k1] = v1.replaceAll(m, r))
+          ([m, r]) => (css[k0][k1] = css[k0][k1].replace(m, r))
         );
       if (typeof v1 == "object") {
         // Remove if object contains nothing.
@@ -53,7 +52,7 @@ export function getCssFromTailwind(options?: GetCssFromTailwindOptions) {
           if (typeof v2 === "string") {
             // Replace variables.
             Object.entries(vars).forEach(
-              ([m, r]) => (css[k0][k1][k2] = v2.replaceAll(m, r))
+              ([m, r]) => (css[k0][k1][k2] = css[k0][k1][k2].replaceAll(m, r))
             );
           }
           // Some values are set to "0". We set it to 0px

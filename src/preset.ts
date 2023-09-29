@@ -1,4 +1,4 @@
-import { definePreset } from "@pandacss/dev";
+import { Preset, definePreset } from "@pandacss/dev";
 import { PresetOptions } from "./types";
 import { createRecipe } from "./recipe";
 import { createDefaultSemanticTokens } from "./semantic-tokens";
@@ -11,7 +11,7 @@ import { createDefaultSemanticTokens } from "./semantic-tokens";
  * @returns A newly created preset with the applied options.
  */
 export function createPreset(options?: PresetOptions) {
-  const { defaultSemanticTokens } = options?.recipe;
+  const { semanticTokens } = options?.recipe;
 
   return definePreset({
     theme: {
@@ -20,14 +20,15 @@ export function createPreset(options?: PresetOptions) {
           ...createRecipe(options?.recipe),
         },
         // Do not include when it has been explicitly set to false
-        semanticTokens: defaultSemanticTokens !== false && {
-          ...createDefaultSemanticTokens({
-            prefix:
-              typeof defaultSemanticTokens === "object"
-                ? defaultSemanticTokens.prefix ?? options?.recipe?.name
-                : options?.recipe?.name,
-          }),
-        },
+        semanticTokens:
+          semanticTokens?.defaults !== false
+            ? {
+                ...createDefaultSemanticTokens({
+                  defaults: semanticTokens?.defaults ?? true,
+                  prefix: semanticTokens?.prefix ?? options?.recipe?.name,
+                }),
+              }
+            : undefined,
       },
     },
   });
