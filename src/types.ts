@@ -8,6 +8,8 @@ export type PresetOptions = {
   recipe?: RecipeOptions;
 };
 
+export type Size = (typeof SIZES)[number];
+
 export type RecipeOptions = {
   /**
    * Choose a name to be used to export the recipe.
@@ -35,7 +37,12 @@ export type RecipeOptions = {
    * All of them are included by default if nothing
    * is provided. You need to choose at least one.
    */
-  sizes?: (typeof SIZES)[number][];
+  sizes?: Size[];
+  /**
+   * Set the default size to use when no size
+   * variant is provided.
+   */
+  defaultSize?: Size;
   /**
    * If you want to enable not-prose functionality.
    *

@@ -43,7 +43,7 @@ The preset generates a `prose` recipe for you that you can use to add beautiful 
 
 ### Usage
 
-You can provide 5 different sizes: `sm`, `base`, `lg`, `xl` and `2xl`. If you provide no options, the default size is set as `base`.
+You can provide 5 different sizes: `sm`, `base`, `lg`, `xl` and `2xl`. If you provide no options, the default size is set as `base` or as whatever you've set it as in the options.
 
 ```tsx
 // Import it from wherever you export panda to, also make sure
@@ -61,30 +61,38 @@ Just like in TailwindCSS, there's also an extra `.lead` class you can apply to a
 
 ### Options
 
-You can change the default name of the recipe (`prose`), the default class name (`prose`) and change other stuff as shown below.
+You can change the default options as shown below.
 
 ```ts
 ...
 presets: [
   typographyPreset({
     recipe: {
-      // The name of the recipe. Useful if you have an other recipe
-      // with the same name. It's 'prose' by default.
+      // Name of the recipe export
       name: "prose",
-
-      // The class name that is used for the recipe base class.
-      // It's 'prose' by default
       className: "prose",
-
-      // Enable TailwindCSS's 'not-prose' support
-      not: true,
-      // You may provide an object to set specific options
+      // Sizes you want to include
+      sizes: ["sm", "base", "lg", "xl", "2xl"],
+      defaultSize: "base",
+      // Enable/disable not-prose functionality
+      // just like in TailwindCSS
+      not: false,
+      // not: true,
       // not: {
-      //   className: "not-prose"
+      //   className: "not-prose",
       // },
-
-      // Advanced JSX tracking: https://panda-css.com/docs/concepts/recipes#advanced-jsx-tracking
-      jsx: ['Mdx']
+      semanticTokens: {
+        // defaults: true,
+        defaults: {
+          // Set a color palette to use for the defaults.
+          // It only works with colors that have a numeric scale (11x)
+          // from 50 to 950. (50, 100, 200, ..., 800, 900, 950).
+          colorPalette: "slate",
+        },
+        // The prefix to use for semantic tokens.
+        // ex: --colors-<prefix>-body
+        prefix: "prose",
+      },
     },
   }),
 ],
