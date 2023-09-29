@@ -76,9 +76,9 @@ presets: [
       defaultSize: "base",
       // Enable/disable not-prose functionality
       // just like in TailwindCSS
-      not: false,
-      // not: true,
-      // not: {
+      notProse: false,
+      // notProse: true,
+      // notProse: {
       //   className: "not-prose",
       // },
       semanticTokens: {
