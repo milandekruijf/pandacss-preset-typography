@@ -12,35 +12,35 @@ export function getCssFromTailwind(options?: GetCssFromTailwindOptions) {
     base: Object.assign({}, cfg.base.css[0]),
     lg: Object.assign({}, cfg.lg.css[0]),
     xl: Object.assign({}, cfg.xl.css[0]),
-    "2xl": Object.assign({}, cfg["2xl"].css[0]),
+    "2xl)": Object.assign({}, cfg["2xl"].css[0]),
   };
   // Transform every tw-prose variable to our own.
   const varPrefix = options?.varPrefix ?? DEFAULT_RECIPE_NAME;
   const vars = {
-    "--tw-prose-body": `--colors-${varPrefix}-body`,
-    "--tw-prose-headings": `--colors-${varPrefix}-heading`,
-    "--tw-prose-lead": `--colors-${varPrefix}-lead`,
-    "--tw-prose-links": `--colors-${varPrefix}-link`,
-    "--tw-prose-bold": `--colors-${varPrefix}-bold`,
-    "--tw-prose-counters": `--colors-${varPrefix}-counter`,
-    "--tw-prose-bullets": `--colors-${varPrefix}-bullet`,
-    "--tw-prose-hr": `--colors-${varPrefix}-hr-border`,
-    "--tw-prose-quotes": `--colors-${varPrefix}-quote`,
-    "--tw-prose-quote-borders": `--colors-${varPrefix}-quote-border`,
-    "--tw-prose-captions": `--colors-${varPrefix}-caption`,
-    "--tw-prose-kbd": `--colors-${varPrefix}-kbd`,
-    "--tw-prose-kbd-shadows": `--colors-${varPrefix}-kbd-shadow`,
-    "--tw-prose-code": `--colors-${varPrefix}-code`,
-    "--tw-prose-pre-code": `--colors-${varPrefix}-pre-code`,
-    "--tw-prose-pre-bg": `--colors-${varPrefix}-pre-bg`,
-    "--tw-prose-th-borders": `--colors-${varPrefix}-th-border`,
-    "--tw-prose-td-borders": `--colors-${varPrefix}-td-border`,
+    "var(--tw-prose-body)": `var(--colors-${varPrefix}-body)`,
+    "var(--tw-prose-headings)": `var(--colors-${varPrefix}-heading)`,
+    "var(--tw-prose-lead)": `var(--colors-${varPrefix}-lead)`,
+    "var(--tw-prose-links)": `var(--colors-${varPrefix}-link)`,
+    "var(--tw-prose-bold)": `var(--colors-${varPrefix}-bold)`,
+    "var(--tw-prose-counters)": `var(--colors-${varPrefix}-counter)`,
+    "var(--tw-prose-bullets)": `var(--colors-${varPrefix}-bullet)`,
+    "var(--tw-prose-hr)": `var(--colors-${varPrefix}-hr-border)`,
+    "var(--tw-prose-quotes)": `var(--colors-${varPrefix}-quote)`,
+    "var(--tw-prose-quote-borders)": `var(--colors-${varPrefix}-quote-border)`,
+    "var(--tw-prose-captions)": `var(--colors-${varPrefix}-caption)`,
+    "var(--tw-prose-kbd)": `var(--colors-${varPrefix}-kbd)`,
+    "var(--tw-prose-kbd-shadows)": `var(--colors-${varPrefix}-kbd-shadow)`,
+    "var(--tw-prose-code)": `var(--colors-${varPrefix}-code)`,
+    "var(--tw-prose-pre-code)": `var(--colors-${varPrefix}-pre-code)`,
+    "var(--tw-prose-pre-bg)": `var(--colors-${varPrefix}-pre-bg)`,
+    "var(--tw-prose-th-borders)": `var(--colors-${varPrefix}-th-border)`,
+    "var(--tw-prose-td-borders)": `var(--colors-${varPrefix}-td-border)`,
   };
   Object.entries(css).forEach(([k0, v0]) => {
     Object.entries(v0).forEach(([k1, v1]) => {
       if (typeof v1 === "string")
         Object.entries(vars).forEach(
-          ([m, r]) => (css[k0][k1] = css[k0][k1].replace(m, r))
+          ([m, r]) => (css[k0][k1] = css[k0][k1].replaceAll(m, r))
         );
       if (typeof v1 == "object") {
         // Remove if object contains nothing.
