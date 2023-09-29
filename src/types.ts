@@ -25,6 +25,11 @@ export type RecipeOptions = {
    */
   className?: string;
   /**
+   * Change the default description that is added
+   * in the JSDoc when generated.
+   */
+  description?: string;
+  /**
    * Choose what size variants to include in the recipe.
    *
    * All of them are included by default if nothing

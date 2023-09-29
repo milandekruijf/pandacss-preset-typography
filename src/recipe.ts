@@ -24,10 +24,13 @@ export function createRecipe(options?: RecipeOptions) {
   return {
     [name]: defineRecipe({
       className,
+      description:
+        options?.description ?? "Generated using 🐼 pandacss-preset-typography",
       base: css.default,
       variants: {
         size: variants,
       },
+      jsx: options?.jsx,
     }),
   };
 }

@@ -15,6 +15,7 @@ export default defineConfig({
           },
           prefix: "prose",
         },
+        jsx: ["Mdx"],
       },
     }),
   ],
