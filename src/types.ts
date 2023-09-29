@@ -49,7 +49,7 @@ export type RecipeOptions = {
    * You may provide an object if you want to set a
    * custom class name.
    */
-  not?: boolean | NotOptions;
+  notProse?: boolean | NotProseOptions;
   /**
    * Configure the default behavior of
    * the included semantic tokens.
@@ -95,7 +95,7 @@ export type SemanticTokensOptions = {
   prefix?: string;
 };
 
-export type NotOptions = {
+export type NotProseOptions = {
   /**
    * Choose a class name to be used
    * instead of the default value.

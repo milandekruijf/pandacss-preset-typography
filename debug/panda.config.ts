@@ -10,7 +10,7 @@ export default defineConfig({
         className: "prose",
         sizes: ["sm", "base", "lg", "xl", "2xl"],
         defaultSize: "base",
-        not: {
+        notProse: {
           className: "not-prose",
         },
         semanticTokens: {

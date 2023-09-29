@@ -14,7 +14,7 @@ export function createRecipe(options?: RecipeOptions) {
       semanticTokens && typeof semanticTokens === "object"
         ? semanticTokens?.prefix ?? name
         : name,
-    notProse: options?.not,
+    notProse: options?.notProse,
   });
 
   // Only add the sizes the user wants.
