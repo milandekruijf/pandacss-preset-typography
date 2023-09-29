@@ -7,7 +7,11 @@ export default defineConfig({
     typographyPreset({
       recipe: {
         name: "prose",
-        className: "hello",
+        className: "prose",
+        sizes: ["sm", "base", "lg", "xl", "2xl"],
+        defaultSemanticTokens: {
+          prefix: "prose",
+        },
       },
     }),
   ],

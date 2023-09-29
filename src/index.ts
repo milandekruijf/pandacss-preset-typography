@@ -1,3 +1,2 @@
-import { Preset } from "./preset";
-
-export default Preset.create;
+export { createPreset as default } from "./preset";
+export type { PresetOptions } from "./types";

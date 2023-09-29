@@ -1,29 +1,34 @@
-import * as Panda from "@pandacss/dev";
-import { Recipe } from "./recipe";
+import { definePreset } from "@pandacss/dev";
+import { PresetOptions } from "./types";
+import { createRecipe } from "./recipe";
+import { createDefaultSemanticTokens } from "./semantic-tokens";
 
-export namespace Preset {
-  /**
-   * Create a new preset using the provided `options`.
-   *
-   * @param options The options used to customize the behavior
-   *  of the preset.
-   * @returns The newly created preset that can be used in the
-   *  `presets` array inside your `panda.config.ts`
-   */
-  export function create(options?: Types.Options): Panda.Preset {
-    return Panda.definePreset({
-      theme: {
-        extend: {
-          recipes: Recipe.getRecord(options?.recipe),
-          semanticTokens: Recipe.createDefaultSemanticTokens({ recipe: options?.recipe }),
+/**
+ * Create a new PandaCSS typography preset.
+ * Use the options to customize the preset to your liking.
+ *
+ * @param options Options to customize the preset to your liking.
+ * @returns A newly created preset with the applied options.
+ */
+export function createPreset(options?: PresetOptions) {
+  const { defaultSemanticTokens } = options?.recipe;
+
+  return definePreset({
+    theme: {
+      extend: {
+        recipes: {
+          ...createRecipe(options?.recipe),
+        },
+        // Do not include when it has been explicitly set to false
+        semanticTokens: defaultSemanticTokens !== false && {
+          ...createDefaultSemanticTokens({
+            prefix:
+              typeof defaultSemanticTokens === "object"
+                ? defaultSemanticTokens.prefix ?? options?.recipe?.name
+                : options?.recipe?.name,
+          }),
         },
       },
-    });
-  }
-
-  export namespace Types {
-    export interface Options {
-      recipe?: Recipe.Types.Options;
-    }
-  }
+    },
+  });
 }
