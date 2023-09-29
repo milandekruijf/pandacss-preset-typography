@@ -5,7 +5,8 @@ export default defineConfig((options) => ({
   format: ["cjs", "esm"],
   dts: true,
   clean: true,
-  minify: true,
+  minify: false,
   outDir: "dist",
+  external: ["@pandacss/dev", "tailwindcss", "@tailwindcss/typography"],
   ...options,
 }));
