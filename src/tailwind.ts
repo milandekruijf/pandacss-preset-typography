@@ -12,7 +12,7 @@ export function getCssFromTailwind(options?: GetCssFromTailwindOptions) {
     base: Object.assign({}, cfg.base.css[0]),
     lg: Object.assign({}, cfg.lg.css[0]),
     xl: Object.assign({}, cfg.xl.css[0]),
-    "2xl)": Object.assign({}, cfg["2xl"].css[0]),
+    "2xl": Object.assign({}, cfg["2xl"].css[0]),
   };
   // Transform every tw-prose variable to our own.
   const varPrefix = options?.varPrefix ?? DEFAULT_RECIPE_NAME;

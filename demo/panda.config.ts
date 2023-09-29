@@ -1,6 +1,6 @@
 import { defineConfig } from "@pandacss/dev";
-//import typographyPreset from "../dist";
-import typographyPreset from "pandacss-preset-typography";
+import typographyPreset from "../dist";
+// import typographyPreset from "pandacss-preset-typography";
 import radixColors from "pandacss-preset-radix-colors";
 
 export default defineConfig({
@@ -10,16 +10,7 @@ export default defineConfig({
     radixColors(),
     typographyPreset({
       recipe: {
-        name: "prose",
-        className: "prose",
-        sizes: ["sm", "base", "lg", "xl", "2xl"],
-        notProse: {
-          className: "test",
-        },
-        semanticTokens: {
-          defaults: false,
-          prefix: "prose",
-        },
+        notProse: true,
       },
     }),
     "@pandacss/dev/presets",

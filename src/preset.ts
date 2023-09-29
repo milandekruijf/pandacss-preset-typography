@@ -1,7 +1,8 @@
-import { Preset, definePreset } from "@pandacss/dev";
+import { definePreset } from "@pandacss/dev";
 import { PresetOptions } from "./types";
 import { createRecipe } from "./recipe";
 import { createDefaultSemanticTokens } from "./semantic-tokens";
+import type { Preset } from "@pandacss/types";
 
 /**
  * Create a new PandaCSS typography preset.
@@ -10,7 +11,7 @@ import { createDefaultSemanticTokens } from "./semantic-tokens";
  * @param options Options to customize the preset to your liking.
  * @returns A newly created preset with the applied options.
  */
-export function createPreset(options?: PresetOptions) {
+export function createPreset(options?: PresetOptions): Preset {
   const { semanticTokens } = options?.recipe;
 
   return definePreset({

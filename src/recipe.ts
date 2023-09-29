@@ -2,8 +2,11 @@ import { defineRecipe } from "@pandacss/dev";
 import type { RecipeOptions } from "./types";
 import { getCssFromTailwind } from "./tailwind";
 import { DEFAULT_RECIPE_NAME, SIZES } from "./constants";
+import type { RecipeConfig } from "@pandacss/types";
 
-export function createRecipe(options?: RecipeOptions) {
+export function createRecipe(
+  options?: RecipeOptions
+): Record<string, RecipeConfig> {
   const name = options?.name ?? DEFAULT_RECIPE_NAME;
   const className = options?.className ?? name;
 

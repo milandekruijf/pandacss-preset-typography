@@ -1,6 +1,7 @@
-import { SemanticTokens, defineSemanticTokens } from "@pandacss/dev";
+import { defineSemanticTokens } from "@pandacss/dev";
 import { SemanticTokensOptions } from "./types";
 import { DEFAULT_RECIPE_NAME } from "./constants";
+import type { SemanticTokens } from "@pandacss/types";
 
 export function createDefaultSemanticTokens(
   options?: SemanticTokensOptions
@@ -13,7 +14,7 @@ export function createDefaultSemanticTokens(
     );
 
   const colorPalette =
-    typeof defaults === "object" && (defaults.colorPalette ?? "slate");
+    typeof defaults === "object" ? defaults?.colorPalette ?? "slate" : "slate";
 
   return defineSemanticTokens({
     colors: {
