@@ -8,9 +8,6 @@ devDependencies:
   '@pandacss/dev':
     specifier: ^0.15.1
     version: 0.15.1(@internationalized/date@3.5.0)(@types/node@20.6.4)(@types/react-dom@18.2.7)(@types/react@18.2.22)(typescript@5.2.2)
-  '@pandacss/types':
-    specifier: ^0.15.1
-    version: 0.15.1
   '@tailwindcss/typography':
     specifier: ^0.5.10
     version: 0.5.10(tailwindcss@3.3.3)
@@ -22,7 +19,7 @@ devDependencies:
     version: 3.3.3
   tsup:
     specifier: ^7.2.0
-    version: 7.2.0(postcss@8.4.27)(typescript@5.2.2)
+    version: 7.2.0(postcss@8.4.30)(typescript@5.2.2)
 
 packages:
 
@@ -4031,23 +4028,6 @@ packages:
       postcss: 8.4.30
     dev: true
 
-  /postcss-load-config@4.0.1(postcss@8.4.27):
-    resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
-    engines: {node: '>= 14'}
-    peerDependencies:
-      postcss: '>=8.0.9'
-      ts-node: '>=9.0.0'
-    peerDependenciesMeta:
-      postcss:
-        optional: true
-      ts-node:
-        optional: true
-    dependencies:
-      lilconfig: 2.1.0
-      postcss: 8.4.27
-      yaml: 2.3.2
-    dev: true
-
   /postcss-load-config@4.0.1(postcss@8.4.30):
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
     engines: {node: '>= 14'}
@@ -4785,7 +4765,7 @@ packages:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: true
 
-  /tsup@7.2.0(postcss@8.4.27)(typescript@5.2.2):
+  /tsup@7.2.0(postcss@8.4.30)(typescript@5.2.2):
     resolution: {integrity: sha512-vDHlczXbgUvY3rWvqFEbSqmC1L7woozbzngMqTtL2PGBODTtWlRwGDDawhvWzr5c1QjKe4OAKqJGfE1xeXUvtQ==}
     engines: {node: '>=16.14'}
     hasBin: true
@@ -4809,8 +4789,8 @@ packages:
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
-      postcss: 8.4.27
-      postcss-load-config: 4.0.1(postcss@8.4.27)
+      postcss: 8.4.30
+      postcss-load-config: 4.0.1(postcss@8.4.30)
       resolve-from: 5.0.0
       rollup: 3.29.3
       source-map: 0.8.0-beta.0
