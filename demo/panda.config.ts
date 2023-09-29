@@ -1,5 +1,6 @@
 import { defineConfig } from "@pandacss/dev";
-import typographyPreset from "../dist";
+//import typographyPreset from "../dist";
+import typographyPreset from "pandacss-preset-typography";
 import radixColors from "pandacss-preset-radix-colors";
 
 export default defineConfig({
