@@ -11,7 +11,7 @@ export default defineConfig({
         sizes: ["sm", "base", "lg", "xl", "2xl"],
         defaultSize: "base",
         notProse: {
-          className: "not-prose",
+          className: "test",
         },
         semanticTokens: {
           defaults: {
