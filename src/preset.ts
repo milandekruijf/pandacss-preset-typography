@@ -12,7 +12,7 @@ import type { Preset } from "@pandacss/types";
  * @returns A newly created preset with the applied options.
  */
 export function createPreset(options?: PresetOptions): Preset {
-  const { semanticTokens } = options?.recipe;
+  const semanticTokens = options?.recipe?.semanticTokens;
 
   return definePreset({
     theme: {

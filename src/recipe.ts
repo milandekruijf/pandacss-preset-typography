@@ -11,7 +11,7 @@ export function createRecipe(
   const className = options?.className ?? name;
 
   // Get the styles from TailwindCSS's typography plugin
-  const { semanticTokens } = options;
+  const semanticTokens = options?.semanticTokens;
   const css = getCssFromTailwind({
     varPrefix:
       semanticTokens && typeof semanticTokens === "object"
