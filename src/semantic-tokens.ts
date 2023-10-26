@@ -3,7 +3,7 @@ import { SemanticTokensOptions } from "./types";
 import { DEFAULT_RECIPE_NAME } from "./constants";
 import type { SemanticTokens } from "@pandacss/types";
 
-export function createDefaultSemanticTokens(
+export function createSemanticTokens(
   options?: SemanticTokensOptions
 ): SemanticTokens {
   const { defaults } = options;

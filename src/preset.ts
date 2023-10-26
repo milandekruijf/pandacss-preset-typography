@@ -1,7 +1,7 @@
 import { definePreset } from "@pandacss/dev";
 import { PresetOptions } from "./types";
 import { createRecipe } from "./recipe";
-import { createDefaultSemanticTokens } from "./semantic-tokens";
+import { createSemanticTokens } from "./semantic-tokens";
 import type { Preset } from "@pandacss/types";
 
 /**
@@ -24,7 +24,7 @@ export function createPreset(options?: PresetOptions): Preset {
         semanticTokens:
           semanticTokens?.defaults !== false
             ? {
-                ...createDefaultSemanticTokens({
+                ...createSemanticTokens({
                   defaults: semanticTokens?.defaults ?? true,
                   prefix: semanticTokens?.prefix ?? options?.recipe?.name,
                 }),
