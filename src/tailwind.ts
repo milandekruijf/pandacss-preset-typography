@@ -1,9 +1,10 @@
 import { DEFAULT_RECIPE_NAME } from "./constants";
 import { GetCssFromTailwindOptions } from "./types";
+import twTypography from "@tailwindcss/typography"
 
 // TODO: Quite a mess. Maybe clean up?
 export function getCssFromTailwind(options?: GetCssFromTailwindOptions) {
-  const cfg = (require("@tailwindcss/typography")() as any).config.theme
+  const cfg = (twTypography() as any).config.theme
     .typography;
   // Map all the necessary styles next to each other for easy processing
   const css = {
